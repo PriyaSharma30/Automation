@@ -1,0 +1,482 @@
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+**
+        * --------------------------------------------------------------------------------------------
+        *              VVDN CONFIDENTIAL
+        *  -----------------------------------------------------------------------------------------------
+        * Copyright (c) 2016 - 2020 VVDN Technologies Pvt Ltd.
+        * All rights reserved
+        *
+        * NOTICE:
+        *  This software is confidential and proprietary to VVDN Technologies.
+        *  No part of this software may be reproduced, stored, transmitted,
+        *  disclosed or used in any form or by any means other than as expressly
+        *  provided by the written Software License Agreement between
+        *  VVDN Technologies and its license.
+        *
+        * PERMISSION:
+        *  Permission is hereby granted to everyone in VVDN Technologies
+        *  to use the software without restriction, including without limitation
+        *  the rights to use, copy, modify, merge, with modifications.
+        *
+        * ------------------------------------------------------------------------------------------------
+        * @file    M_CTC_ID_016_.txt
+        * @brief    M PLANE O-RAN  Conformance
+        * @credits Created based on Software Release for GIRU_revC-- v4.0.3
+                            
+                            
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
+		********** Connect to the NETCONF Server ***********
+
+
+----------------------------------------------------------------------------------------------------
+
+> connect --ssh --host 192.168.4.60 --port 830 --login operator
+                    Interactive SSH Authentication
+                    Type your password:
+                    Password: 
+                    > status
+                    Current NETCONF session:
+                    ID          : 20
+                    Host        : 192.168.4.60
+                    Port        : 830
+                    Transport   : SSH
+                    Capabilities:
+                    
+
+	 urn:ietf:params:netconf:base:1.0
+	 urn:ietf:params:netconf:base:1.1
+	 urn:ietf:params:netconf:capability:writable-running:1.0
+	 urn:ietf:params:netconf:capability:candidate:1.0
+	 urn:ietf:params:netconf:capability:rollback-on-error:1.0
+	 urn:ietf:params:netconf:capability:validate:1.1
+	 urn:ietf:params:netconf:capability:startup:1.0
+	 urn:ietf:params:netconf:capability:xpath:1.0
+	 urn:ietf:params:netconf:capability:with-defaults:1.0?basic-mode=explicit&also-supported=report-all,report-all-tagged,trim,explicit
+	 urn:ietf:params:netconf:capability:notification:1.0
+	 urn:ietf:params:netconf:capability:interleave:1.0
+	 urn:ietf:params:xml:ns:yang:ietf-yang-metadata?module=ietf-yang-metadata&revision=2016-08-05
+	 urn:ietf:params:xml:ns:yang:1?module=yang&revision=2017-02-20
+	 urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&revision=2013-07-15
+	 urn:ietf:params:xml:ns:yang:ietf-yang-types?module=ietf-yang-types&revision=2013-07-15
+	 urn:ietf:params:netconf:capability:yang-library:1.1?revision=2019-01-04&content-id=61
+	 urn:sysrepo:plugind?module=sysrepo-plugind&revision=2020-12-10
+	 urn:ietf:params:xml:ns:yang:ietf-netconf-acm?module=ietf-netconf-acm&revision=2018-02-14
+	 urn:ietf:params:xml:ns:netconf:base:1.0?module=ietf-netconf&revision=2013-09-29&features=writable-running,candidate,rollback-on-error,validate,startup,url,xpath
+	 urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults?module=ietf-netconf-with-defaults&revision=2011-06-01
+	 urn:ietf:params:xml:ns:yang:ietf-netconf-notifications?module=ietf-netconf-notifications&revision=2012-02-06
+	 urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring?module=ietf-netconf-monitoring&revision=2010-10-04
+	 urn:ietf:params:xml:ns:netconf:notification:1.0?module=notifications&revision=2008-07-14
+	 urn:ietf:params:xml:ns:netmod:notification?module=nc-notifications&revision=2008-07-14
+	 urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name?module=ietf-x509-cert-to-name&revision=2014-12-10
+	 urn:ietf:params:xml:ns:yang:iana-crypt-hash?module=iana-crypt-hash&revision=2014-08-06
+	 urn:notification_history?module=notification_history
+	 urn:ietf:params:xml:ns:yang:iana-if-type?module=iana-if-type&revision=2017-01-19
+----------------------------------------------------------------------------------------------------
+>subscribe
+----------------------------------------------------------------------------------------------------
+
+Ok
+
+----------------------------------------------------------------------------------------------------
+****************************************************************************************************
+
+> get --filter-xpath /o-ran-software-management:software-inventory
+----------------------------------------------------------------------------------------------------
+<?xml version="1.0" ?>
+<data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+	<software-inventory xmlns="urn:o-ran:software-management:1.0">
+		<software-slot>
+			<name>swSlot1</name>
+			<status>VALID</status>
+			<active>false</active>
+			<running>false</running>
+			<access>READ_WRITE</access>
+			<product-code>STL O-RU</product-code>
+			<vendor-code>VN</vendor-code>
+			<build-id>90f0b6c</build-id>
+			<build-name>Beta Release</build-name>
+			<build-version>4.1.8</build-version>
+			<files>
+				<name>boot</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/BOOT0001.BIN</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>kernel</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/image0001.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>rootfs</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p2/</local-path>
+				<integrity>OK</integrity>
+			</files>
+		</software-slot>
+		<software-slot>
+			<name>swSlot2</name>
+			<status>VALID</status>
+			<active>true</active>
+			<running>true</running>
+			<access>READ_WRITE</access>
+			<product-code>STL O-RU</product-code>
+			<vendor-code>VN</vendor-code>
+			<build-id>90f0b6c</build-id>
+			<build-name>Beta Release</build-name>
+			<build-version>4.0.3</build-version>
+			<files>
+				<name>boot</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/BOOT0002.BIN</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>kernel</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/image0002.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>rootfs</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p3/</local-path>
+				<integrity>OK</integrity>
+			</files>
+		</software-slot>
+		<software-slot>
+			<name>swRecoverySlot</name>
+			<status>VALID</status>
+			<active>false</active>
+			<running>false</running>
+			<access>READ_ONLY</access>
+			<product-code>STL=O-RU</product-code>
+			<vendor-code>VN</vendor-code>
+			<build-id>factory_img</build-id>
+			<build-name>Beta Release</build-name>
+			<build-version>1.3.4</build-version>
+			<files>
+				<name>boot</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/BOOT0003.BIN</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>kernel</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/golden.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>rootfs</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/golden.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+		</software-slot>
+	</software-inventory>
+</data>
+
+----------------------------------------------------------------------------------------------------
+****************************************************************************************************
+		Step 1 : TER NETCONF Client triggers <rpc><software-activate> Slot must have attributes active = FALSE, running = FALSE.
+****************************************************************************************************
+----------------------------------------------------------------------------------------------------
+
+> user-rpc
+
+----------------------------------------------------------------------------------------------------
+******* Replace with below xml ********
+----------------------------------------------------------------------------------------------------
+<software-activate xmlns="urn:o-ran:software-management:1.0">
+<slot-name>swSlot1</slot-name>
+</software-activate>
+****************************************************************************************************
+		Step 2 : O-RU NETCONF Server responds with <rpc-reply><software-activate><status>. The parameter "status" is set to STARTED.
+****************************************************************************************************
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:d8f5d9c3-6793-4dee-bcde-878266a004e1"><status xmlns="urn:o-ran:software-management:1.0">STARTED</status><notification-timeout xmlns="urn:o-ran:software-management:1.0">30</notification-timeout></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+****************************************************************************************************
+		Step 3 : O-RU NETCONF Server sends <notification><activation-event> with a status COMPLETED.
+****************************************************************************************************
+<?xml version="1.0" ?>
+<notification xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
+	<eventTime>2104-04-28T21:35:26Z</eventTime>
+	<activation-event xmlns="urn:o-ran:software-management:1.0">
+		<slot-name>swSlot1</slot-name>
+		<status>COMPLETED</status>
+		<return-code>0</return-code>
+	</activation-event>
+</notification>
+
+----------------------------------------------------------------------------------------------------
+****************************************************************************************************
+
+> get --filter-xpath /o-ran-software-management:software-inventory
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+<?xml version="1.0" ?>
+<data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+	<software-inventory xmlns="urn:o-ran:software-management:1.0">
+		<software-slot>
+			<name>swSlot1</name>
+			<status>VALID</status>
+			<active>true</active>
+			<running>false</running>
+			<access>READ_WRITE</access>
+			<product-code>STL O-RU</product-code>
+			<vendor-code>VN</vendor-code>
+			<build-id>90f0b6c</build-id>
+			<build-name>Beta Release</build-name>
+			<build-version>4.1.8</build-version>
+			<files>
+				<name>boot</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/BOOT0001.BIN</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>kernel</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/image0001.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>rootfs</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p2/</local-path>
+				<integrity>OK</integrity>
+			</files>
+		</software-slot>
+		<software-slot>
+			<name>swSlot2</name>
+			<status>VALID</status>
+			<active>false</active>
+			<running>true</running>
+			<access>READ_WRITE</access>
+			<product-code>STL O-RU</product-code>
+			<vendor-code>VN</vendor-code>
+			<build-id>90f0b6c</build-id>
+			<build-name>Beta Release</build-name>
+			<build-version>4.0.3</build-version>
+			<files>
+				<name>boot</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/BOOT0002.BIN</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>kernel</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/image0002.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>rootfs</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p3/</local-path>
+				<integrity>OK</integrity>
+			</files>
+		</software-slot>
+		<software-slot>
+			<name>swRecoverySlot</name>
+			<status>VALID</status>
+			<active>false</active>
+			<running>false</running>
+			<access>READ_ONLY</access>
+			<product-code>STL=O-RU</product-code>
+			<vendor-code>VN</vendor-code>
+			<build-id>factory_img</build-id>
+			<build-name>Beta Release</build-name>
+			<build-version>1.3.4</build-version>
+			<files>
+				<name>boot</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/BOOT0003.BIN</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>kernel</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/golden.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>rootfs</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/golden.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+		</software-slot>
+	</software-inventory>
+</data>
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+				SYSTEM LOGS
+----------------------------------------------------------------------------------------------------
+Apr 28 21:35:20 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:20 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:21 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:21 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:22 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:22 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:23 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:23 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Accepted a connection on 0.0.0.0:830.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Session 258 (user "root", CID 81) created.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Received an SSH message "request-service" of subtype "ssh-userauth".
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Received an SSH message "request-auth" of subtype "password".
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: User "operator" authenticated.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Received an SSH message "request-channel-open" of subtype "session".
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Received an SSH message "request-channel" of subtype "subsystem".
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Session 259 (user "root", CID 81) created.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: There are no subscribers for "ietf-netconf-notifications" notifications.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Generated new event (netconf-session-start).
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Published event "rpc" "/notifications:create-subscription" with ID 3 priority 0 for 1 subscribers.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Processing "/notifications:create-subscription" "rpc" event with ID 3 priority 0 (remaining 1 subscribers).
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Successful processing of "rpc" event with ID 3 priority 0 (remaining 0 subscribers).
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Event "rpc" with ID 3 priority 0 succeeded.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Session 20: thread 4 event new RPC.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Published event "rpc" "/ietf-netconf:get" with ID 16 priority 0 for 1 subscribers.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Processing "/ietf-netconf:get" "rpc" event with ID 16 priority 0 (remaining 1 subscribers).
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Published event "operational" "/o-ran-software-management:software-inventory" with ID 10.
+Apr 28 21:35:24 garuda user.notice fw_manager[1277]: RPC #10 recieved. xpath -> /o-ran-software-management:software-inventory
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Event "operational" with ID 10 succeeded.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL=O-RU", but it is not required.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Successful processing of "rpc" event with ID 16 priority 0 (remaining 0 subscribers).
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Event "rpc" with ID 16 priority 0 succeeded.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL=O-RU", but it is not required.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:24 garuda daemon.info netopeer2-server[1209]: Session 20: thread 3 event new RPC.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Must condition "/software-inventory/software-slot[name = current()][status = 'VALID']" not satisfied, but it is not required.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Published event "operational" "/o-ran-software-management:software-inventory" with ID 11.
+Apr 28 21:35:25 garuda user.notice fw_manager[1277]: RPC #11 recieved. xpath -> /o-ran-software-management:software-inventory
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Event "operational" with ID 11 succeeded.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL=O-RU", but it is not required.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Published event "rpc" "/o-ran-software-management:software-activate" with ID 1 priority 0 for 1 subscribers.
+Apr 28 21:35:25 garuda user.notice fw_manager[1277]: RPC #1 recieved. xpath -> /o-ran-software-management:software-activate
+Apr 28 21:35:25 garuda user.notice fw_manager[1277]: Requested slot for activation - swSlot1
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Event "rpc" with ID 1 priority 0 succeeded.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Session 20: thread 1 event new RPC.
+Apr 28 21:35:25 garuda user.notice SYNCMNGR[1518]: Received message from S-Plane
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:25 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:26 garuda user.notice fw_manager[1277]: RPC #12 recieved. xpath -> /o-ran-software-management:software-inventory
+Apr 28 21:35:26 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:26 garuda daemon.info netopeer2-server[1209]: There is no leafref "/software-inventory/software-slot/name" with the value "swSlot1", but it is not required.
+Apr 28 21:35:26 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:26 garuda daemon.info netopeer2-server[1209]: Processing "notif" "o-ran-software-management" event with ID 1.
+Apr 28 21:35:26 garuda daemon.info netopeer2-server[1209]: Successful processing of "notif" event with ID 1 priority 0 (remaining 0 subscribers).
+Apr 28 21:35:26 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:26 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:27 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:27 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:28 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:28 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:29 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:29 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:30 garuda user.err FAULT MANAGER[1223]: sendData : Source ID: 17 
+Apr 28 21:35:30 garuda user.err FAULT MANAGER[1223]: sendData : Fault ID: 23 
+Apr 28 21:35:30 garuda user.err FAULT MANAGER[1223]: sendData : FAULT_IS_CLEARED: TRUE 
+Apr 28 21:35:30 garuda user.err FAULT MANAGER[1223]: sendData : FAULT_SEVERITY: 0 
+Apr 28 21:35:30 garuda user.err FAULT MANAGER[1223]: sendData : FAULT_TIME: 2104-04-28T21:35:30Z 
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: There is no instance of "/notification_history:history/module-notification[module-name='Intialization Fault']", but it is not required.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: There is no instance of "/notification_history:history/module-notification[module-name='Intialization Fault']/module-name", but it is not required.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Processing "notif" "ietf-netconf-notifications" event with ID 1.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Successful processing of "notif" event with ID 1 priority 0 (remaining 0 subscribers).
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: There is no instance of "/notification_history:history/module-notification[module-name='Intialization Fault']/notif-error", but it is not required.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Processing "notif" "ietf-netconf-notifications" event with ID 2.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Successful processing of "notif" event with ID 2 priority 0 (remaining 0 subscribers).
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: There is no instance of "/notification_history:history/module-notification[module-name='Intialization Fault']/alert", but it is not required.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Processing "notif" "ietf-netconf-notifications" event with ID 3.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Successful processing of "notif" event with ID 3 priority 0 (remaining 0 subscribers).
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: There is no instance of "/notification_history:history/module-notification[module-name='Intialization Fault']/epochtime", but it is not required.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Processing "notif" "ietf-netconf-notifications" event with ID 4.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Successful processing of "notif" event with ID 4 priority 0 (remaining 0 subscribers).
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Processing "notif" "o-ran-fm" event with ID 1.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Successful processing of "notif" event with ID 1 priority 0 (remaining 0 subscribers).
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:30 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Published event "rpc" "/ietf-netconf:get" with ID 17 priority 0 for 1 subscribers.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Processing "/ietf-netconf:get" "rpc" event with ID 17 priority 0 (remaining 1 subscribers).
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Published event "operational" "/o-ran-software-management:software-inventory" with ID 13.
+Apr 28 21:35:31 garuda user.notice fw_manager[1277]: RPC #13 recieved. xpath -> /o-ran-software-management:software-inventory
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Trying to connect via IPv4 to 192.168.4.15:4334.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: getsockopt() error (Connection refused).
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Event "operational" with ID 13 succeeded.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL=O-RU", but it is not required.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Successful processing of "rpc" event with ID 17 priority 0 (remaining 0 subscribers).
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Event "rpc" with ID 17 priority 0 succeeded.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Resolving unresolved data nodes and their constraints...
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL=O-RU", but it is not required.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: All data nodes and constraints resolved.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Session 20: thread 1 event new RPC.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Session 20: thread 4 event new RPC.
+Apr 28 21:35:31 garuda daemon.info netopeer2-server[1209]: Session 20: thread 4 event session terminated.
+Apr 28 21:35:32 garuda daemon.info netopeer2-server[1209]: There are no subscribers for "ietf-netconf-notifications" notifications.
+Apr 28 21:35:32 garuda daemon.info netopeer2-server[1209]: Generated new event (netconf-session-end).
+Apr 28 21:35:32 garuda auth.info sshd[11216]: Accepted password for operator from 192.168.4.15 port 60380 ssh2
+Apr 28 21:35:32 garuda authpriv.info sshd[11216]: pam_unix(sshd:session): session opened for user operator by (uid=0)
+
+ ****************************************************************************************************
+STATUS                                                     =                  PASS        
+
+ ****************************************************************************************************
+

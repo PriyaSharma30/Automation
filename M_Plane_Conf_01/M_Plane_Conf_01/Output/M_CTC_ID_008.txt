@@ -1,0 +1,241 @@
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+**
+        * --------------------------------------------------------------------------------------------
+        *              VVDN CONFIDENTIAL
+        *  -----------------------------------------------------------------------------------------------
+        * Copyright (c) 2016 - 2020 VVDN Technologies Pvt Ltd.
+        * All rights reserved
+        *
+        * NOTICE:
+        *  This software is confidential and proprietary to VVDN Technologies.
+        *  No part of this software may be reproduced, stored, transmitted,
+        *  disclosed or used in any form or by any means other than as expressly
+        *  provided by the written Software License Agreement between
+        *  VVDN Technologies and its license.
+        *
+        * PERMISSION:
+        *  Permission is hereby granted to everyone in VVDN Technologies
+        *  to use the software without restriction, including without limitation
+        *  the rights to use, copy, modify, merge, with modifications.
+        *
+        * ------------------------------------------------------------------------------------------------
+        * @file    M_CTC_ID_008_.txt
+        * @brief    M PLANE O-RAN  Conformance
+        * @credits Created based on Software Release for GIRU_revC-- v0.0.1
+                            
+                            
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
+		********** Connect to the NETCONF Server ***********
+
+
+----------------------------------------------------------------------------------------------------
+> connect --ssh --host 192.168.4.40 --port 830 --login operator
+                Interactive SSH Authentication
+                Type your password:
+                Password: 
+                > status
+                Current NETCONF session:
+                ID          : 4
+                Host        : 192.168.4.40
+                Port        : 830
+                Transport   : SSH
+                Capabilities:
+                
+	 urn:ietf:params:netconf:base:1.0
+	 urn:ietf:params:netconf:base:1.1
+	 urn:ietf:params:netconf:capability:writable-running:1.0
+	 urn:ietf:params:netconf:capability:candidate:1.0
+	 urn:ietf:params:netconf:capability:rollback-on-error:1.0
+	 urn:ietf:params:netconf:capability:validate:1.1
+	 urn:ietf:params:netconf:capability:startup:1.0
+	 urn:ietf:params:netconf:capability:xpath:1.0
+	 urn:ietf:params:netconf:capability:with-defaults:1.0?basic-mode=explicit&also-supported=report-all,report-all-tagged,trim,explicit
+	 urn:ietf:params:netconf:capability:notification:1.0
+	 urn:ietf:params:netconf:capability:interleave:1.0
+	 urn:ietf:params:xml:ns:yang:ietf-yang-metadata?module=ietf-yang-metadata&revision=2016-08-05
+	 urn:ietf:params:xml:ns:yang:1?module=yang&revision=2017-02-20
+	 urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&revision=2013-07-15
+	 urn:ietf:params:xml:ns:yang:ietf-yang-types?module=ietf-yang-types&revision=2013-07-15
+	 urn:ietf:params:netconf:capability:yang-library:1.1?revision=2019-01-04&content-id=63
+	 urn:sysrepo:plugind?module=sysrepo-plugind&revision=2020-12-10
+	 urn:ietf:params:xml:ns:yang:ietf-netconf-acm?module=ietf-netconf-acm&revision=2018-02-14
+	 urn:ietf:params:xml:ns:netconf:base:1.0?module=ietf-netconf&revision=2013-09-29&features=writable-running,candidate,rollback-on-error,validate,startup,url,xpath
+	 urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults?module=ietf-netconf-with-defaults&revision=2011-06-01
+	 urn:ietf:params:xml:ns:yang:ietf-netconf-notifications?module=ietf-netconf-notifications&revision=2012-02-06
+	 urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring?module=ietf-netconf-monitoring&revision=2010-10-04
+	 urn:ietf:params:xml:ns:netconf:notification:1.0?module=notifications&revision=2008-07-14
+	 urn:ietf:params:xml:ns:netmod:notification?module=nc-notifications&revision=2008-07-14
+	 urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name?module=ietf-x509-cert-to-name&revision=2014-12-10
+	 urn:ietf:params:xml:ns:yang:iana-crypt-hash?module=iana-crypt-hash&revision=2014-08-06
+	 urn:notification_history?module=notification_history
+	 urn:ietf:params:xml:ns:yang:iana-if-type?module=iana-if-type&revision=2017-01-19
+----------------------------------------------------------------------------------------------------
+>subscribe
+----------------------------------------------------------------------------------------------------
+
+Ok
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Processing....
+----------------------------------------------------------------------------------------------------
+****************************************************************************************************
+		 TER NETCONF Client responds with <rpc supervision-watchdog-reset></rpc> to the O-RU NETCONF Server
+
+****************************************************************************************************
+----------------------------------------------------------------------------------------------------
+
+> user-rpc
+
+----------------------------------------------------------------------------------------------------
+******* Replace with below xml ********
+----------------------------------------------------------------------------------------------------
+<supervision-watchdog-reset xmlns="urn:o-ran:supervision:1.0">               
+    <supervision-notification-interval>33</supervision-notification-interval>
+    <guard-timer-overhead>22</guard-timer-overhead>                         
+</supervision-watchdog-reset>
+****************************************************************************************************
+		 O-RU NETCONF Server sends a reply to the TER NETCONF Client <rpc-reply><next-update-at>date-time</next-update-at></rpc-reply>
+
+****************************************************************************************************
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:a20005f5-4a8b-45c8-ae9b-5aa8fac2b023"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:37:23+08:50</next-update-at></nc:rpc-reply>
+
+
+		******** Looped for 30 iterations ***********
+
+
+----------------------------------------------------------------------------------------------------
+1 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:fc098bc8-359b-48f8-b844-a98d67e32ae3"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:37:24+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+2 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:6d50c1f3-413b-40a9-8f83-7a145c1dcfc9"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:38:08+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+3 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:c2570508-7d94-481c-a673-ab3bf6d3d8b6"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:38:52+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+4 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:1526cfa7-04d8-4a41-86ed-b10f769432c2"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:39:36+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+5 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:2b990e86-5c13-4085-a95f-aec2fbfcd07d"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:40:20+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+6 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:76862368-48b4-4798-8780-e21b8f6cdfc7"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:41:04+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+7 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:6cc2cdad-9641-40f9-b715-440225b5c45d"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:41:49+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+8 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:06bcff76-eedf-4a2d-a603-afef02c29851"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:42:33+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+9 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:3b233a2c-217f-497f-8912-c9112ac86644"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:43:17+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+10 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:f81133be-5e7f-4812-85f4-a82bba4d5df4"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:44:01+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+11 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:b7eb52b3-018e-4de1-95f2-9808d1b576fa"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:44:45+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+12 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:c81dfbbe-a071-4e29-baee-8a0907632f3d"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:45:29+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+13 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:1503d984-4159-42c6-9bb3-363a063db8db"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:46:14+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+14 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:24f919ff-df6a-470d-94f6-ee997594af74"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:46:58+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+15 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:361da5e3-6678-4d6c-8c97-642a91be05ee"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:47:42+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+16 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:2ef691d7-7fdd-48af-8ead-54995972f778"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:48:26+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+17 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:3a79fd8e-6b01-4375-8314-a75bc7a601e3"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:49:10+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+18 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:6dc15931-8ce8-4967-9968-e413c914853d"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:49:54+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+19 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:87d73196-2aa1-4a95-be47-c7a087678f44"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:50:38+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+20 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:f73248a2-596a-4262-9a5b-dad681ff79e6"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:51:23+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+21 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:9b9f4aa9-27e4-443f-be24-853c32109492"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:52:07+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+22 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:646aa29e-cfb0-4d0e-a765-3036833f6f7d"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:52:51+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+23 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:58504d8e-7fc9-4e3c-a31a-cce7d36970ed"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:53:35+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+24 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:fa92c06b-23fe-49d7-8fe7-bd7f7cf570f1"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:54:19+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+25 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:ef1d12ab-b88d-400e-9085-f4c754a754ce"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:55:03+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+26 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:a43ab373-adbc-4a22-bb06-4dc68ef27b83"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:55:48+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+27 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:c209ba8a-d659-4610-8e91-e85a892ed253"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:56:32+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+28 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:7c70cba6-5deb-4f05-a69f-2dd34d0b2d8a"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:57:16+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+29 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:7dd92a28-32b4-4b2a-a7a3-5f375b2b0335"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:58:00+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+30 th iteration
+----------------------------------------------------------------------------------------------------
+<nc:rpc-reply xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:f0d8c914-dc6c-48c0-9fe2-a2ac6db598b1"><next-update-at xmlns="urn:o-ran:supervision:1.0">2099-04-27T23:58:44+08:50</next-update-at></nc:rpc-reply>
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+				SYSTEM LOGS
+----------------------------------------------------------------------------------------------------
+
+ ****************************************************************************************************
+STATUS                                                     =                  PASS        
+
+ ****************************************************************************************************

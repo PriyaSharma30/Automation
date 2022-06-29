@@ -1,0 +1,92 @@
+['----------------------------------------------------------------------------------------------------', '\n']
+['----------------------------------------------------------------------------------------------------', '\n']
+['----------------------------------------------------------------------------------------------------', '\n']
+	 Interfaces Present in DU Side
+['----------------------------------------------------------------------------------------------------', '\n']
+eth0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether 64:9d:99:b1:7e:62  txqueuelen 1000  (Ethernet)
+        RX packets 76  bytes 12822 (12.8 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 203  bytes 28532 (28.5 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.17.95.65  netmask 255.255.240.0  broadcast 172.17.95.255
+        inet6 fe80::c497:d862:b9f8:4409  prefixlen 64  scopeid 0x20<link>
+        ether 4c:d9:8f:69:23:2b  txqueuelen 1000  (Ethernet)
+        RX packets 1623204  bytes 1009793036 (1.0 GB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1134714  bytes 579561863 (579.5 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device interrupt 17  
+
+eth2: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.4.15  netmask 255.255.255.0  broadcast 192.168.4.255
+        inet6 3ffe:501:cafe::a001:1012  prefixlen 64  scopeid 0x0<global>
+        inet6 fe80::e6cd:a2bf:1ffb:6930  prefixlen 64  scopeid 0x20<link>
+        ether 64:9d:99:b1:7e:63  txqueuelen 1000  (Ethernet)
+        RX packets 266641  bytes 61137147 (61.1 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1258563  bytes 1645446976 (1.6 GB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth2.13: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.165.104  netmask 255.255.255.0  broadcast 192.168.165.255
+        inet6 fe80::669d:99ff:feb1:7e63  prefixlen 64  scopeid 0x20<link>
+        ether 64:9d:99:b1:7e:63  txqueuelen 1000  (Ethernet)
+        RX packets 2514  bytes 373244 (373.2 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 3286  bytes 388850 (388.8 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth2.19: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.137.156  netmask 255.255.255.0  broadcast 192.168.137.255
+        inet6 fe80::669d:99ff:feb1:7e63  prefixlen 64  scopeid 0x20<link>
+        ether 64:9d:99:b1:7e:63  txqueuelen 1000  (Ethernet)
+        RX packets 3499  bytes 480025 (480.0 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 6016  bytes 617130 (617.1 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 62181  bytes 10229020 (10.2 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 62181  bytes 10229020 (10.2 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+['----------------------------------------------------------------------------------------------------', '\n']
+	 DHCP Status
+['----------------------------------------------------------------------------------------------------', '\n']
+● isc-dhcp-server.service - ISC DHCP IPv4 server
+   Loaded: loaded (/lib/systemd/system/isc-dhcp-server.service; enabled; vendor preset: enabled)
+   Active: active (running) since Fri 2022-06-17 04:10:45 IST; 11min ago
+     Docs: man:dhcpd(8)
+ Main PID: 17755 (dhcpd)
+    Tasks: 1 (limit: 4915)
+   CGroup: /system.slice/isc-dhcp-server.service
+           └─17755 dhcpd -user dhcpd -group dhcpd -f -4 -pf /run/dhcp-server/dhcpd.pid -cf /etc/dhcp/dhcpd.conf eth2.13
+
+Jun 17 04:21:30 vvdn dhcpd[17755]: DHCPREQUEST for 192.168.165.37 (192.168.165.104) from 98:ae:71:00:8a:51 (garuda) via eth2.13
+Jun 17 04:21:30 vvdn dhcpd[17755]: DHCPACK on 192.168.165.37 to 98:ae:71:00:8a:51 (garuda) via eth2.13
+Jun 17 04:21:32 vvdn dhcpd[17755]: reuse_lease: lease age 2 (secs) under 25% threshold, reply with unaltered, existing lease for 192.168.165.37
+Jun 17 04:21:32 vvdn dhcpd[17755]: DHCPDISCOVER from 98:ae:71:00:8a:51 (garuda) via eth2.13
+Jun 17 04:21:32 vvdn dhcpd[17755]: DHCPOFFER on 192.168.165.37 to 98:ae:71:00:8a:51 (garuda) via eth2.13
+Jun 17 04:21:32 vvdn dhcpd[17755]: reuse_lease: lease age 2 (secs) under 25% threshold, reply with unaltered, existing lease for 192.168.165.37
+Jun 17 04:21:32 vvdn dhcpd[17755]: DHCPREQUEST for 192.168.165.37 (192.168.165.104) from 98:ae:71:00:8a:51 (garuda) via eth2.13
+Jun 17 04:21:32 vvdn dhcpd[17755]: DHCPACK on 192.168.165.37 to 98:ae:71:00:8a:51 (garuda) via eth2.13
+Jun 17 04:22:31 vvdn dhcpd[17755]: DHCPREQUEST for 192.168.165.37 from 98:ae:71:00:8a:51 (garuda) via eth2.13
+Jun 17 04:22:31 vvdn dhcpd[17755]: DHCPACK on 192.168.165.37 to 98:ae:71:00:8a:51 (garuda) via eth2.13
+['----------------------------------------------------------------------------------------------------', '\n']
+['----------------------------------------------------------------------------------------------------', '\n']
+	The O-RU NETCONF Serve  establishes TCP connection and performs a Call Home procedure towards the NETCONF Client and not establishes a SSH.
+
+
+['----------------------------------------------------------------------------------------------------', '\n']
+['----------------------------------------------------------------------------------------------------', '\n']
+Error occured in line number 155
+['----------------------------------------------------------------------------------------------------', '\n']
+append() takes exactly one argument (2 given)
+['----------------------------------------------------------------------------------------------------', '\n']

@@ -1,0 +1,22 @@
+		****************************************************************************************************
+
+
+		********** Connect to the NETCONF Server ***********
+
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+> connect --ssh --host host --port 830 --login user
+        Interactive SSH Authentication
+        Type your password:
+        Password: 
+        > status
+        Current NETCONF session:
+        ID          : m.session_id
+        Host        : host
+        Port        : port
+        Transport   : SSH
+        Capabilities:
+        
+STATUS                  =             FAIL        

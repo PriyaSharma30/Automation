@@ -1,0 +1,6 @@
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-7.0.1, pluggy-1.0.0
+rootdir: /home/vvdn/AUTOMATION/M_Plane_Conf
+collected 0 items
+
+============================ no tests ran in 3.05s =============================

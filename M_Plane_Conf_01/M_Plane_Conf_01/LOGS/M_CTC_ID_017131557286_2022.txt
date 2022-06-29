@@ -1,0 +1,409 @@
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+**
+        * --------------------------------------------------------------------------------------------
+        *              VVDN CONFIDENTIAL
+        *  -----------------------------------------------------------------------------------------------
+        * Copyright (c) 2016 - 2020 VVDN Technologies Pvt Ltd.
+        * All rights reserved
+        *
+        * NOTICE:
+        *  This software is confidential and proprietary to VVDN Technologies.
+        *  No part of this software may be reproduced, stored, transmitted,
+        *  disclosed or used in any form or by any means other than as expressly
+        *  provided by the written Software License Agreement between
+        *  VVDN Technologies and its license.
+        *
+        * PERMISSION:
+        *  Permission is hereby granted to everyone in VVDN Technologies
+        *  to use the software without restriction, including without limitation
+        *  the rights to use, copy, modify, merge, with modifications.
+        *
+        * ------------------------------------------------------------------------------------------------
+        * @file    M_CTC_ID_017_.txt
+        * @brief    M PLANE O-RAN  Conformance
+        * @credits Created based on Software Release for GIRU_revC-- v4.1.9
+                            
+                            
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
+		********** Connect to the NETCONF Server ***********
+
+
+----------------------------------------------------------------------------------------------------
+
+
+######### STEP 1 TER NETCONF client establishes a connection using a user account with sudo privileges#########
+
+
+----------------------------------------------------------------------------------------------------
+
+> connect --ssh --host 192.168.3.44 --port 830 --login operator
+                    Interactive SSH Authentication
+                    Type your password:
+                    Password: 
+                    > status
+                    Current NETCONF session:
+                    ID          : 16
+                    Host        : 192.168.3.44
+                    Port        : 830
+                    Transport   : SSH
+                    Capabilities:
+                    
+
+	urn:ietf:params:netconf:base:1.0
+	urn:ietf:params:netconf:base:1.1
+	urn:ietf:params:netconf:capability:writable-running:1.0
+	urn:ietf:params:netconf:capability:candidate:1.0
+	urn:ietf:params:netconf:capability:rollback-on-error:1.0
+	urn:ietf:params:netconf:capability:validate:1.1
+	urn:ietf:params:netconf:capability:startup:1.0
+	urn:ietf:params:netconf:capability:xpath:1.0
+	urn:ietf:params:netconf:capability:with-defaults:1.0?basic-mode=explicit&also-supported=report-all,report-all-tagged,trim,explicit
+	urn:ietf:params:netconf:capability:notification:1.0
+	urn:ietf:params:netconf:capability:interleave:1.0
+	urn:ietf:params:xml:ns:yang:ietf-yang-metadata?module=ietf-yang-metadata&revision=2016-08-05
+	urn:ietf:params:xml:ns:yang:1?module=yang&revision=2017-02-20
+	urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&revision=2013-07-15
+	urn:ietf:params:xml:ns:yang:ietf-yang-types?module=ietf-yang-types&revision=2013-07-15
+	urn:ietf:params:netconf:capability:yang-library:1.1?revision=2019-01-04&content-id=61
+	urn:sysrepo:plugind?module=sysrepo-plugind&revision=2020-12-10
+	urn:ietf:params:xml:ns:yang:ietf-netconf-acm?module=ietf-netconf-acm&revision=2018-02-14
+	urn:ietf:params:xml:ns:netconf:base:1.0?module=ietf-netconf&revision=2013-09-29&features=writable-running,candidate,rollback-on-error,validate,startup,url,xpath
+	urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults?module=ietf-netconf-with-defaults&revision=2011-06-01
+	urn:ietf:params:xml:ns:yang:ietf-netconf-notifications?module=ietf-netconf-notifications&revision=2012-02-06
+	urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring?module=ietf-netconf-monitoring&revision=2010-10-04
+	urn:ietf:params:xml:ns:netconf:notification:1.0?module=notifications&revision=2008-07-14
+	urn:ietf:params:xml:ns:netmod:notification?module=nc-notifications&revision=2008-07-14
+	urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name?module=ietf-x509-cert-to-name&revision=2014-12-10
+	urn:ietf:params:xml:ns:yang:iana-crypt-hash?module=iana-crypt-hash&revision=2014-08-06
+	urn:notification_history?module=notification_history
+	urn:ietf:params:xml:ns:yang:iana-if-type?module=iana-if-type&revision=2017-01-19
+----------------------------------------------------------------------------------------------------
+>subscribe
+----------------------------------------------------------------------------------------------------
+
+Ok
+
+----------------------------------------------------------------------------------------------------
+****************************************************************************************************
+
+> get --filter-xpath /o-ran-software-management:software-inventory
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+****************************************************************************************************
+		Step 1 : TER NETCONF Client sends <rpc><reset></rpc> to the O-RU NETCONF Server..
+****************************************************************************************************
+----------------------------------------------------------------------------------------------------
+
+> user-rpc
+
+----------------------------------------------------------------------------------------------------
+******* Replace with below xml ********
+----------------------------------------------------------------------------------------------------
+<reset xmlns="urn:o-ran:operations:1.0"></reset>
+----------------------------------------------------------------------------------------------------
+****************************************************************************************************
+		Step 2 : O-RU NETCONF Server responds with rpc-reply.
+****************************************************************************************************
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+		sequence item 0: expected str instance, RPCReply found
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+				SYSTEM LOGS
+----------------------------------------------------------------------------------------------------
+Oct  1 15:51:49 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:49 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:49 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:49 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:50 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:50 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:50 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:50 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:51 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:51 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:51 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:51 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:52 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:52 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:52 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:52 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:53 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:53 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:53 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:53 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:53 garuda user.notice SYNCMNGR[1164]: Received message from S-Plane
+
+Oct  1 15:51:54 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:54 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:54 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:54 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:55 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:55 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:55 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:55 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:56 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:56 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:56 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:56 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:57 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:57 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:57 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:57 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:57 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:51:57 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:51:57 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:51:57 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:51:57 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Accepted a connection on 0.0.0.0:830.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Session 457 (user "root", CID 1) created.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Received an SSH message "request-service" of subtype "ssh-userauth".
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Received an SSH message "request-auth" of subtype "password".
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: User "operator" authenticated.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Received an SSH message "request-channel-open" of subtype "session".
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Received an SSH message "request-channel" of subtype "subsystem".
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Session 458 (user "root", CID 1) created.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: There are no subscribers for "ietf-netconf-notifications" notifications.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Generated new event (netconf-session-start).
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Published event "rpc" "/notifications:create-subscription" with ID 3 priority 0 for 1 subscribers.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Processing "/notifications:create-subscription" "rpc" event with ID 3 priority 0 (remaining 1 subscribers).
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Successful processing of "rpc" event with ID 3 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Event "rpc" with ID 3 priority 0 succeeded.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Session 16: thread 3 event new RPC.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Published event "rpc" "/ietf-netconf:get" with ID 11 priority 0 for 1 subscribers.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Processing "/ietf-netconf:get" "rpc" event with ID 11 priority 0 (remaining 1 subscribers).
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-software-management:software-inventory" with ID 9.
+
+Oct  1 15:51:58 garuda user.notice fw_manager[917]: RPC #9 recieved. xpath -> /o-ran-software-management:software-inventory
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: There is no instance of "/stli_giru-wdm:system-apps/fault_manager", but it is not required.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Processing "notif" "ietf-netconf-notifications" event with ID 1.
+
+Oct  1 15:51:58 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 1 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 9 succeeded.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL=O-RU", but it is not required.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Successful processing of "rpc" event with ID 11 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Event "rpc" with ID 11 priority 0 succeeded.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL=O-RU", but it is not required.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Session 16: thread 2 event new RPC.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: There is no instance of "/stli_giru-wdm:system-apps/fw_manager", but it is not required.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Processing "notif" "ietf-netconf-notifications" event with ID 2.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 2 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Published event "rpc" "/o-ran-operations:reset" with ID 1 priority 0 for 1 subscribers.
+
+Oct  1 15:51:59 garuda user.notice SR_OP[1175]: RPC recived on /o-ran-operations:reset for mplane-triggered reset
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Event "rpc" with ID 1 priority 0 succeeded.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Session 16: thread 0 event new RPC.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Session 16: thread 2 event new RPC.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Session 16: thread 2 event session terminated.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: There is no instance of "/stli_giru-wdm:system-apps/sync_manager", but it is not required.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Processing "notif" "ietf-netconf-notifications" event with ID 3.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 3 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:51:59 garuda daemon.err netopeer2-server[842]: Session 16: invalid session to write to.
+
+Oct  1 15:51:59 garuda daemon.err netopeer2-server[842]: Session 16: failed to write notification (error).
+
+Oct  1 15:51:59 garuda daemon.err netopeer2-server[842]: Sending a notification to session 16 failed.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: There are no subscribers for "ietf-netconf-notifications" notifications.
+
+Oct  1 15:51:59 garuda daemon.info netopeer2-server[842]: Generated new event (netconf-session-end).
+
+Oct  1 15:52:00 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:52:00 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:52:00 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:52:00 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:52:01 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:52:01 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:52:01 garuda user.info operations_manager[1175]: O-RU going for reboot
+
+Oct  1 15:52:01 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:52:01 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:52:02 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:52:02 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:52:02 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:52:02 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:52:03 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:52:03 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:52:03 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:52:03 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:52:04 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:52:04 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:52:04 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:52:04 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:52:04 garuda auth.info sshd[8238]: Accepted password for operator from 192.168.3.15 port 50984 ssh2
+
+Oct  1 15:52:04 garuda authpriv.info sshd[8238]: pam_unix(sshd:session): session opened for user operator by (uid=0)
+
+****************************************************************************************************
+activation-event-status         =          sequence item 0: expected str instance, RPCReply found 
+Error occured in line number 96
+****************************************************************************************************
+****************************************************************************************************
+STATUS                                                     =                  FAIL        
+****************************************************************************************************

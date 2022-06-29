@@ -1,0 +1,4504 @@
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+**
+        * --------------------------------------------------------------------------------------------
+        *              VVDN CONFIDENTIAL
+        *  -----------------------------------------------------------------------------------------------
+        * Copyright (c) 2016 - 2020 VVDN Technologies Pvt Ltd.
+        * All rights reserved
+        *
+        * NOTICE:
+        *  This software is confidential and proprietary to VVDN Technologies.
+        *  No part of this software may be reproduced, stored, transmitted,
+        *  disclosed or used in any form or by any means other than as expressly
+        *  provided by the written Software License Agreement between
+        *  VVDN Technologies and its license.
+        *
+        * PERMISSION:
+        *  Permission is hereby granted to everyone in VVDN Technologies
+        *  to use the software without restriction, including without limitation
+        *  the rights to use, copy, modify, merge, with modifications.
+        *
+        * ------------------------------------------------------------------------------------------------
+        * @file    M_CTC_ID_010_.txt
+        * @brief    M PLANE O-RAN  Conformance
+        * @credits Created based on Software Release for GIRU_revC-- v4.1.9
+                            
+                            
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
+		********** Connect to the NETCONF Server ***********
+
+
+----------------------------------------------------------------------------------------------------
+> connect --ssh --host 192.168.3.44 --port 830 --login operator
+                        Interactive SSH Authentication
+                        Type your password:
+                        Password: 
+                        > status
+                        Current NETCONF session:
+                        ID          : 4
+                        Host        : 192.168.3.44
+                        Port        : 830
+                        Transport   : SSH
+                        Capabilities:
+                        
+	urn:ietf:params:netconf:base:1.0
+	urn:ietf:params:netconf:base:1.1
+	urn:ietf:params:netconf:capability:writable-running:1.0
+	urn:ietf:params:netconf:capability:candidate:1.0
+	urn:ietf:params:netconf:capability:rollback-on-error:1.0
+	urn:ietf:params:netconf:capability:validate:1.1
+	urn:ietf:params:netconf:capability:startup:1.0
+	urn:ietf:params:netconf:capability:xpath:1.0
+	urn:ietf:params:netconf:capability:with-defaults:1.0?basic-mode=explicit&also-supported=report-all,report-all-tagged,trim,explicit
+	urn:ietf:params:netconf:capability:notification:1.0
+	urn:ietf:params:netconf:capability:interleave:1.0
+	urn:ietf:params:xml:ns:yang:ietf-yang-metadata?module=ietf-yang-metadata&revision=2016-08-05
+	urn:ietf:params:xml:ns:yang:1?module=yang&revision=2017-02-20
+	urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&revision=2013-07-15
+	urn:ietf:params:xml:ns:yang:ietf-yang-types?module=ietf-yang-types&revision=2013-07-15
+	urn:ietf:params:netconf:capability:yang-library:1.1?revision=2019-01-04&content-id=61
+	urn:sysrepo:plugind?module=sysrepo-plugind&revision=2020-12-10
+	urn:ietf:params:xml:ns:yang:ietf-netconf-acm?module=ietf-netconf-acm&revision=2018-02-14
+	urn:ietf:params:xml:ns:netconf:base:1.0?module=ietf-netconf&revision=2013-09-29&features=writable-running,candidate,rollback-on-error,validate,startup,url,xpath
+	urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults?module=ietf-netconf-with-defaults&revision=2011-06-01
+	urn:ietf:params:xml:ns:yang:ietf-netconf-notifications?module=ietf-netconf-notifications&revision=2012-02-06
+	urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring?module=ietf-netconf-monitoring&revision=2010-10-04
+	urn:ietf:params:xml:ns:netconf:notification:1.0?module=notifications&revision=2008-07-14
+	urn:ietf:params:xml:ns:netmod:notification?module=nc-notifications&revision=2008-07-14
+	urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name?module=ietf-x509-cert-to-name&revision=2014-12-10
+	urn:ietf:params:xml:ns:yang:iana-crypt-hash?module=iana-crypt-hash&revision=2014-08-06
+	urn:notification_history?module=notification_history
+	urn:ietf:params:xml:ns:yang:iana-if-type?module=iana-if-type&revision=2017-01-19
+****************************************************************************************************
+		 Step 1 The TER NETCONF Client triggers <rpc><get> towards the O-RU NETCONF Server.
+----------------------------------------------------------------------------------------------------
+> get
+----------------------------------------------------------------------------------------------------
+
+
+
+****************************************************************************************************
+		 Step 2 The O-RU NETCONF Server responds with <rpc-reply><data> where <data> contains all information elements that the O-RU NETCONF Server is able to expose
+****************************************************************************************************
+<?xml version="1.0" ?>
+<data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+	<users xmlns="urn:o-ran:user-mgmt:1.0">
+		<user>
+			<name>oranuser</name>
+			<account-type>PASSWORD</account-type>
+			<enabled>true</enabled>
+		</user>
+		<user>
+			<name>operator</name>
+			<account-type>PASSWORD</account-type>
+			<enabled>true</enabled>
+		</user>
+		<user>
+			<name>observer</name>
+			<account-type>PASSWORD</account-type>
+			<enabled>true</enabled>
+		</user>
+		<user>
+			<name>installer</name>
+			<account-type>PASSWORD</account-type>
+			<enabled>true</enabled>
+		</user>
+	</users>
+	<nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">
+		<enable-nacm>true</enable-nacm>
+		<read-default>deny</read-default>
+		<write-default>deny</write-default>
+		<exec-default>deny</exec-default>
+		<enable-external-groups>false</enable-external-groups>
+		<groups>
+			<group>
+				<name>sudo</name>
+				<user-name>operator</user-name>
+			</group>
+			<group>
+				<name>fm-pm</name>
+				<user-name>observer</user-name>
+			</group>
+			<group>
+				<name>nms</name>
+				<user-name>installer</user-name>
+			</group>
+			<group>
+				<name>swm</name>
+			</group>
+		</groups>
+		<rule-list>
+			<name>sudo-access</name>
+			<group>sudo</group>
+			<rule>
+				<name>ietf-netconf-permission</name>
+				<module-name>ietf-netconf</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-supervision-permission</name>
+				<module-name>o-ran-supervision</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-hardware-permission</name>
+				<module-name>o-ran-hardware</module-name>
+				<access-operations>read exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-hardware-permission</name>
+				<module-name>ietf-hardware</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>iana-hardware-permission</name>
+				<module-name>iana-hardware</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-usermgmt-permission1</name>
+				<module-name>o-ran-usermgmt</module-name>
+				<path xmlns:o-ran-usermgmt="urn:o-ran:user-mgmt:1.0">/o-ran-usermgmt:users/o-ran-usermgmt:user</path>
+				<access-operations>create update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-usermgmt-permission2</name>
+				<module-name>o-ran-usermgmt</module-name>
+				<path xmlns:o-ran-usermgmt="urn:o-ran:user-mgmt:1.0">/o-ran-usermgmt:users/o-ran-usermgmt:user/o-ran-usermgmt:name</path>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-usermgmt-permission3</name>
+				<module-name>o-ran-usermgmt</module-name>
+				<path xmlns:o-ran-usermgmt="urn:o-ran:user-mgmt:1.0">/o-ran-usermgmt:users/o-ran-usermgmt:user/o-ran-usermgmt:account-type</path>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-usermgmt-permission4</name>
+				<module-name>o-ran-usermgmt</module-name>
+				<path xmlns:o-ran-usermgmt="urn:o-ran:user-mgmt:1.0">/o-ran-usermgmt:users/o-ran-usermgmt:user/o-ran-usermgmt:password</path>
+				<access-operations>create update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-usermgmt-permission5</name>
+				<module-name>o-ran-usermgmt</module-name>
+				<path xmlns:o-ran-usermgmt="urn:o-ran:user-mgmt:1.0">/o-ran-usermgmt:users/o-ran-usermgmt:user/o-ran-usermgmt:enabled</path>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-fm-permission</name>
+				<module-name>o-ran-fm</module-name>
+				<access-operations>read exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-sync-permission</name>
+				<module-name>o-ran-sync</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-delay-management-permission</name>
+				<module-name>o-ran-delay-management</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-module-cap-permission</name>
+				<module-name>o-ran-module-cap</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-udp-echo-permission</name>
+				<module-name>o-ran-udp-echo</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-operations-permission</name>
+				<module-name>o-ran-operations</module-name>
+				<access-operations>read exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-uplane-conf</name>
+				<module-name>o-ran-uplane-conf</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-lbm-permission</name>
+				<module-name>o-ran-lbm</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-software-management-permission</name>
+				<module-name>o-ran-software-management</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-file-management-permission</name>
+				<module-name>o-ran-file-management</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-performance-management-permission</name>
+				<module-name>o-ran-performance-management</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-transceiver-permission</name>
+				<module-name>o-ran-transceiver</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-interfaces-permission</name>
+				<module-name>o-ran-interfaces</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-ip-permission</name>
+				<module-name>ietf-ip</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-interfaces-permission</name>
+				<module-name>ietf-interfaces</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>iana-if-type-permission</name>
+				<module-name>iana-if-type</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-inet-types-permission</name>
+				<module-name>ietf-inet-types</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-processing-elements-permission</name>
+				<module-name>o-ran-processing-element</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-mplane-interfaces-permission</name>
+				<module-name>o-ran-mplane-int</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-dhcp-permission</name>
+				<module-name>o-ran-dhcp</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-troubleshooting-permission</name>
+				<module-name>o-ran-troubleshooting</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-trace-permission</name>
+				<module-name>o-ran-trace</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-acm-permission1</name>
+				<module-name>ietf-netconf-acm</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-acm-permission2</name>
+				<module-name>ietf-netconf-acm</module-name>
+				<path xmlns:nacm="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">/nacm:nacm/nacm:groups/nacm:name</path>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-acm-permission3</name>
+				<module-name>ietf-netconf-acm</module-name>
+				<path xmlns:nacm="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">/nacm:nacm/nacm:groups/nacm:group/nacm:user-name</path>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-yang-library-permission</name>
+				<module-name>ietf-yang-library</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-monitoring-permission</name>
+				<module-name>ietf-netconf-monitoring</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-notifications-permission</name>
+				<module-name>ietf-netconf-notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>nc-notifications-permission</name>
+				<module-name>nc-notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>notifications-permission</name>
+				<module-name>notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+		</rule-list>
+		<rule-list>
+			<name>nms-access</name>
+			<group>nms</group>
+			<rule>
+				<name>ietf-netconf-permission</name>
+				<module-name>ietf-netconf</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-hardware-permission</name>
+				<module-name>o-ran-hardware</module-name>
+				<access-operations>read exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-hardware-permission</name>
+				<module-name>ietf-hardware</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>iana-hardware-permission</name>
+				<module-name>iana-hardware</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-fm-permission</name>
+				<module-name>o-ran-fm</module-name>
+				<access-operations>read exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-sync-permission</name>
+				<module-name>o-ran-sync</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-delay-management-permission</name>
+				<module-name>o-ran-delay-management</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-module-cap-permission</name>
+				<module-name>o-ran-module-cap</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-udp-echo-permission</name>
+				<module-name>o-ran-udp-echo</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-operations-permission</name>
+				<module-name>o-ran-operations</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-uplane-conf</name>
+				<module-name>o-ran-uplane-conf</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-lbm-permission</name>
+				<module-name>o-ran-lbm</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-software-management-permission</name>
+				<module-name>o-ran-software-management</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-file-management-permission</name>
+				<module-name>o-ran-file-management</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-performance-management-permission</name>
+				<module-name>o-ran-performance-management</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-transceiver-permission</name>
+				<module-name>o-ran-transceiver</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-interfaces-permission</name>
+				<module-name>o-ran-interfaces</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-ip-permission</name>
+				<module-name>ietf-ip</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-interfaces-permission</name>
+				<module-name>ietf-interfaces</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>iana-if-type-permission</name>
+				<module-name>iana-if-type</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-inet-types-permission</name>
+				<module-name>ietf-inet-types</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-processing-elements-permission</name>
+				<module-name>o-ran-processing-element</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-mplane-interfaces-permission</name>
+				<module-name>o-ran-mplane-int</module-name>
+				<access-operations>create read update delete</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-dhcp-permission</name>
+				<module-name>o-ran-dhcp</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-troubleshooting-permission</name>
+				<module-name>o-ran-troubleshooting</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-trace-permission</name>
+				<module-name>o-ran-trace</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-acm-permission</name>
+				<module-name>ietf-netconf-acm</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-yang-library-permission</name>
+				<module-name>ietf-yang-library</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-monitoring-permission</name>
+				<module-name>ietf-netconf-monitoring</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-notifications-permission</name>
+				<module-name>ietf-netconf-notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>nc-notifications-permission</name>
+				<module-name>nc-notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>notifications-permission</name>
+				<module-name>notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+		</rule-list>
+		<rule-list>
+			<name>fm-pm-access</name>
+			<group>fm-pm</group>
+			<rule>
+				<name>ietf-netconf-permission</name>
+				<module-name>ietf-netconf</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-hardware-permission</name>
+				<module-name>ietf-hardware</module-name>
+				<access-operations>read exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>iana-hardware-permission</name>
+				<module-name>iana-hardware</module-name>
+				<access-operations>read exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-fm-permission</name>
+				<module-name>o-ran-fm</module-name>
+				<access-operations>read exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-sync-permission</name>
+				<module-name>o-ran-sync</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-delay-management-permission</name>
+				<module-name>o-ran-delay-management</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-module-cap-permission</name>
+				<module-name>o-ran-module-cap</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-operations-permission</name>
+				<module-name>o-ran-operations</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-uplane-conf</name>
+				<module-name>o-ran-uplane-conf</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-lbm-permission</name>
+				<module-name>o-ran-lbm</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-software-management-permission</name>
+				<module-name>o-ran-software-management</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-file-management-permission</name>
+				<module-name>o-ran-file-management</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-performance-management-permission</name>
+				<module-name>o-ran-performance-management</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-transceiver-permission</name>
+				<module-name>o-ran-transceiver</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-interfaces-permission</name>
+				<module-name>o-ran-interfaces</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-ip-permission</name>
+				<module-name>ietf-ip</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-interfaces-permission</name>
+				<module-name>ietf-interfaces</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>iana-if-type-permission</name>
+				<module-name>iana-if-type</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-inet-types-permission</name>
+				<module-name>ietf-inet-types</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-processing-elements-permission</name>
+				<module-name>o-ran-processing-element</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-mplane-interfaces-permission</name>
+				<module-name>o-ran-mplane-int</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-dhcp-permission</name>
+				<module-name>o-ran-dhcp</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-troubleshooting-permission</name>
+				<module-name>o-ran-troubleshooting</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-trace-permission</name>
+				<module-name>o-ran-trace</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-acm-permission</name>
+				<module-name>ietf-netconf-acm</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-yang-library-permission</name>
+				<module-name>ietf-yang-library</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-monitoring-permission</name>
+				<module-name>ietf-netconf-monitoring</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-notifications-permission</name>
+				<module-name>ietf-netconf-notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>nc-notifications-permission</name>
+				<module-name>nc-notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>notifications-permission</name>
+				<module-name>notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+		</rule-list>
+		<rule-list>
+			<name>swm-access</name>
+			<group>swm</group>
+			<rule>
+				<name>ietf-netconf-permission</name>
+				<module-name>ietf-netconf</module-name>
+				<access-operations>exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>o-ran-software-management-permission</name>
+				<module-name>o-ran-software-management</module-name>
+				<access-operations>create read update delete exec</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>iana-if-type-permission</name>
+				<module-name>iana-if-type</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-inet-types-permission</name>
+				<module-name>ietf-inet-types</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-acm-permission</name>
+				<module-name>ietf-netconf-acm</module-name>
+				<access-operations>read</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-yang-library-permission</name>
+				<module-name>ietf-yang-library</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-monitoring-permission</name>
+				<module-name>ietf-netconf-monitoring</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>ietf-netconf-notifications-permission</name>
+				<module-name>ietf-netconf-notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>nc-notifications-permission</name>
+				<module-name>nc-notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+			<rule>
+				<name>notifications-permission</name>
+				<module-name>notifications</module-name>
+				<access-operations>*</access-operations>
+				<action>permit</action>
+			</rule>
+		</rule-list>
+		<denied-operations>0</denied-operations>
+		<denied-data-writes>0</denied-data-writes>
+		<denied-notifications>0</denied-notifications>
+	</nacm>
+	<hardware xmlns="urn:ietf:params:xml:ns:yang:ietf-hardware">
+		<component>
+			<name>ru-module</name>
+			<class xmlns:o-ran-hw="urn:o-ran:hardware:1.0">o-ran-hw:O-RAN-RADIO</class>
+			<state>
+				<oper-state>enabled</oper-state>
+				<usage-state>busy</usage-state>
+				<availability-state xmlns="urn:o-ran:hardware:1.0">NORMAL</availability-state>
+			</state>
+			<o-ran-name xmlns="urn:o-ran:hardware:1.0">ru-module</o-ran-name>
+			<description>STLI-RU</description>
+			<hardware-rev>B1-20220627</hardware-rev>
+			<software-rev>06-v4.1.9</software-rev>
+			<serial-num>2203248300002</serial-num>
+			<mfg-name>STL-STLI-GARUDA</mfg-name>
+			<model-name>RU_INDOOR_GARUDA</model-name>
+			<uuid>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</uuid>
+			<label-content xmlns="urn:o-ran:hardware:1.0">
+				<model-name>true</model-name>
+				<serial-number>true</serial-number>
+			</label-content>
+			<product-code xmlns="urn:o-ran:hardware:1.0">O-RAN RU PROD v1.0.4</product-code>
+			<contains-child>ru-port0</contains-child>
+			<contains-child>ru-port1</contains-child>
+		</component>
+		<component>
+			<name>ru-port0</name>
+			<class xmlns:ianahw="urn:ietf:params:xml:ns:yang:iana-hardware">ianahw:port</class>
+			<parent>ru-module</parent>
+			<parent-rel-pos>0</parent-rel-pos>
+			<state>
+				<oper-state>enabled</oper-state>
+				<usage-state>busy</usage-state>
+				<availability-state xmlns="urn:o-ran:hardware:1.0">NORMAL</availability-state>
+			</state>
+			<o-ran-name xmlns="urn:o-ran:hardware:1.0">ru-port0</o-ran-name>
+			<description>STLI_RU_PORT</description>
+			<hardware-rev>B1-20220627</hardware-rev>
+			<is-fru>false</is-fru>
+			<mfg-date>2020-05-27T09:00:00-05:30</mfg-date>
+		</component>
+		<component>
+			<name>ru-port1</name>
+			<class xmlns:ianahw="urn:ietf:params:xml:ns:yang:iana-hardware">ianahw:port</class>
+			<parent>ru-module</parent>
+			<parent-rel-pos>1</parent-rel-pos>
+			<state>
+				<oper-state>enabled</oper-state>
+				<usage-state>busy</usage-state>
+				<availability-state xmlns="urn:o-ran:hardware:1.0">NORMAL</availability-state>
+			</state>
+			<o-ran-name xmlns="urn:o-ran:hardware:1.0">ru-port1</o-ran-name>
+			<description>STLI_RU_PORT</description>
+			<hardware-rev>B1-20220627</hardware-rev>
+			<is-fru>false</is-fru>
+			<mfg-date>2020-05-27T09:00:00-05:30</mfg-date>
+		</component>
+		<last-change>2022-06-27T10:45:17Z</last-change>
+	</hardware>
+	<interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+		<interface>
+			<name>lo</name>
+			<enabled>true</enabled>
+			<type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+			<ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+				<address>
+					<ip>127.0.0.1</ip>
+					<netmask>255.0.0.0</netmask>
+				</address>
+				<enabled>true</enabled>
+			</ipv4>
+			<mac-address xmlns="urn:o-ran:interfaces:1.0">00:00:00:00:00:00</mac-address>
+			<statistics>
+				<in-octets>0</in-octets>
+				<in-discards>0</in-discards>
+				<in-errors>0</in-errors>
+				<out-octets>0</out-octets>
+				<out-errors>0</out-errors>
+				<out-discards>0</out-discards>
+			</statistics>
+			<oper-status>up</oper-status>
+			<phys-address>00:00:00:00:00:00</phys-address>
+			<last-cleared xmlns="urn:o-ran:interfaces:1.0">2020-05-19T16:39:57-08:00</last-cleared>
+		</interface>
+		<interface>
+			<name>eth0</name>
+			<enabled>true</enabled>
+			<type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+			<ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+				<enabled>true</enabled>
+				<forwarding>false</forwarding>
+				<m-plane-marking xmlns="urn:o-ran:interfaces:1.0">18</m-plane-marking>
+				<address>
+					<ip>192.168.3.44</ip>
+					<netmask>255.255.255.0</netmask>
+				</address>
+			</ipv4>
+			<l2-mtu xmlns="urn:o-ran:interfaces:1.0">1500</l2-mtu>
+			<vlan-tagging xmlns="urn:o-ran:interfaces:1.0">true</vlan-tagging>
+			<class-of-service xmlns="urn:o-ran:interfaces:1.0">
+				<u-plane-marking>7</u-plane-marking>
+				<c-plane-marking>7</c-plane-marking>
+				<m-plane-marking>7</m-plane-marking>
+				<s-plane-marking>7</s-plane-marking>
+				<other-marking>7</other-marking>
+			</class-of-service>
+			<mac-address xmlns="urn:o-ran:interfaces:1.0">98:ae:71:01:64:d8</mac-address>
+			<port-reference xmlns="urn:o-ran:interfaces:1.0">
+				<port-name>ru-port0</port-name>
+				<port-number>0</port-number>
+			</port-reference>
+			<statistics>
+				<in-octets>49011</in-octets>
+				<in-discards>0</in-discards>
+				<in-errors>0</in-errors>
+				<out-octets>66109</out-octets>
+				<out-errors>0</out-errors>
+				<out-discards>0</out-discards>
+			</statistics>
+			<oper-status>up</oper-status>
+			<phys-address>98:ae:71:01:64:d8</phys-address>
+			<last-cleared xmlns="urn:o-ran:interfaces:1.0">2020-05-19T16:39:57-08:00</last-cleared>
+		</interface>
+		<interface>
+			<name>eth0.100</name>
+			<type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:l2vlan</type>
+			<enabled>true</enabled>
+			<base-interface xmlns="urn:o-ran:interfaces:1.0">eth0</base-interface>
+			<vlan-id xmlns="urn:o-ran:interfaces:1.0">100</vlan-id>
+			<mac-address xmlns="urn:o-ran:interfaces:1.0">98:ae:71:01:64:d8</mac-address>
+			<port-reference xmlns="urn:o-ran:interfaces:1.0">
+				<port-name>ru-port0</port-name>
+				<port-number>0</port-number>
+			</port-reference>
+			<statistics>
+				<in-octets>0</in-octets>
+				<in-discards>0</in-discards>
+				<in-errors>0</in-errors>
+				<out-octets>796</out-octets>
+				<out-errors>0</out-errors>
+				<out-discards>0</out-discards>
+			</statistics>
+			<oper-status>up</oper-status>
+			<phys-address>98:ae:71:01:64:d8</phys-address>
+			<last-cleared xmlns="urn:o-ran:interfaces:1.0">2020-05-19T16:39:57-08:00</last-cleared>
+		</interface>
+	</interfaces>
+	<processing-elements xmlns="urn:o-ran:processing-element:1.0">
+		<transport-session-type>ETH-INTERFACE</transport-session-type>
+		<ru-elements>
+			<name>element0</name>
+			<transport-flow>
+				<interface-name>eth0.100</interface-name>
+				<eth-flow>
+					<ru-mac-address>98:ae:71:01:64:d8</ru-mac-address>
+					<vlan-id>100</vlan-id>
+					<o-du-mac-address>f8:f2:1e:a8:07:6d</o-du-mac-address>
+				</eth-flow>
+			</transport-flow>
+		</ru-elements>
+		<maximum-number-of-transport-flows>4</maximum-number-of-transport-flows>
+	</processing-elements>
+	<sync xmlns="urn:o-ran:sync:1.0">
+		<ptp-config>
+			<domain-number>24</domain-number>
+			<accepted-clock-classes>
+				<clock-classes>255</clock-classes>
+			</accepted-clock-classes>
+			<accepted-clock-classes>
+				<clock-classes>248</clock-classes>
+			</accepted-clock-classes>
+			<accepted-clock-classes>
+				<clock-classes>165</clock-classes>
+			</accepted-clock-classes>
+			<accepted-clock-classes>
+				<clock-classes>160</clock-classes>
+			</accepted-clock-classes>
+			<accepted-clock-classes>
+				<clock-classes>150</clock-classes>
+			</accepted-clock-classes>
+			<accepted-clock-classes>
+				<clock-classes>140</clock-classes>
+			</accepted-clock-classes>
+			<accepted-clock-classes>
+				<clock-classes>135</clock-classes>
+			</accepted-clock-classes>
+			<accepted-clock-classes>
+				<clock-classes>7</clock-classes>
+			</accepted-clock-classes>
+			<accepted-clock-classes>
+				<clock-classes>6</clock-classes>
+			</accepted-clock-classes>
+			<ptp-profile>G_8275_1</ptp-profile>
+			<g-8275-1-config>
+				<multicast-mac-address>FORWARDABLE</multicast-mac-address>
+				<delay-asymmetry>0</delay-asymmetry>
+			</g-8275-1-config>
+		</ptp-config>
+		<ptp-status>
+			<reporting-period>10</reporting-period>
+			<lock-state>UNLOCKED</lock-state>
+			<clock-class>255</clock-class>
+			<partial-timing-supported>false</partial-timing-supported>
+			<sources>
+				<local-port-number>0</local-port-number>
+				<state>DISABLED</state>
+				<two-step-flag>true</two-step-flag>
+				<leap61>false</leap61>
+				<leap59>false</leap59>
+				<current-utc-offset-valid>false</current-utc-offset-valid>
+				<ptp-timescale>true</ptp-timescale>
+				<time-traceable>false</time-traceable>
+				<frequency-traceable>false</frequency-traceable>
+				<source-port-number>0</source-port-number>
+				<current-utc-offset>37</current-utc-offset>
+				<priority1>128</priority1>
+				<clock-class>255</clock-class>
+				<clock-accuracy>254</clock-accuracy>
+				<offset-scaled-log-variance>65535</offset-scaled-log-variance>
+				<priority2>255</priority2>
+				<steps-removed>0</steps-removed>
+				<time-source>160</time-source>
+			</sources>
+		</ptp-status>
+		<synce-config>
+			<acceptance-list-of-ssm>PRC</acceptance-list-of-ssm>
+			<acceptance-list-of-ssm>EEC1</acceptance-list-of-ssm>
+			<acceptance-list-of-ssm>DNU</acceptance-list-of-ssm>
+			<acceptance-list-of-ssm>NONE</acceptance-list-of-ssm>
+			<ssm-timeout>5</ssm-timeout>
+		</synce-config>
+		<synce-status>
+			<reporting-period>10</reporting-period>
+			<lock-state>UNLOCKED</lock-state>
+			<sources>
+				<local-port-number>0</local-port-number>
+				<state>DISABLED</state>
+				<quality-level>0</quality-level>
+			</sources>
+		</synce-status>
+		<sync-status>
+			<sync-state>FREERUN</sync-state>
+			<supported-reference-types>
+				<item>PTP</item>
+			</supported-reference-types>
+			<supported-reference-types>
+				<item>SYNCE</item>
+			</supported-reference-types>
+		</sync-status>
+		<sync-capability>
+			<sync-t-tsc>ENCHANCED</sync-t-tsc>
+		</sync-capability>
+	</sync>
+	<module-capability xmlns="urn:o-ran:module-cap:1.0">
+		<ru-capabilities>
+			<ru-supported-category>CAT_A</ru-supported-category>
+			<number-of-ru-ports>4</number-of-ru-ports>
+			<number-of-spatial-streams>4</number-of-spatial-streams>
+			<max-power-per-pa-antenna>25.0</max-power-per-pa-antenna>
+			<min-power-per-pa-antenna>23.0</min-power-per-pa-antenna>
+			<fronthaul-split-option>7</fronthaul-split-option>
+			<format-of-iq-sample>
+				<dynamic-compression-supported>false</dynamic-compression-supported>
+				<realtime-variable-bit-width-supported>false</realtime-variable-bit-width-supported>
+				<compression-method-supported>
+					<iq-bitwidth>9</iq-bitwidth>
+					<compression-type>STATIC</compression-type>
+					<bitwidth>9</bitwidth>
+					<exponent>4</exponent>
+				</compression-method-supported>
+				<compression-method-supported>
+					<iq-bitwidth>12</iq-bitwidth>
+					<compression-type>STATIC</compression-type>
+					<bitwidth>12</bitwidth>
+					<exponent>4</exponent>
+				</compression-method-supported>
+				<compression-method-supported>
+					<iq-bitwidth>16</iq-bitwidth>
+				</compression-method-supported>
+				<variable-bit-width-per-channel-supported>false</variable-bit-width-per-channel-supported>
+				<syminc-supported>false</syminc-supported>
+			</format-of-iq-sample>
+			<energy-saving-by-transmission-blanks>false</energy-saving-by-transmission-blanks>
+			<dynamic-transport-delay-management-supported>false</dynamic-transport-delay-management-supported>
+		</ru-capabilities>
+		<band-capabilities>
+			<band-number>43</band-number>
+			<max-supported-frequency-dl>3800000000</max-supported-frequency-dl>
+			<min-supported-frequency-dl>3600000000</min-supported-frequency-dl>
+			<max-supported-bandwidth-dl>100000000</max-supported-bandwidth-dl>
+			<max-num-carriers-dl>1</max-num-carriers-dl>
+			<max-carrier-bandwidth-dl>100000000</max-carrier-bandwidth-dl>
+			<min-carrier-bandwidth-dl>50000000</min-carrier-bandwidth-dl>
+			<max-supported-frequency-ul>3800000000</max-supported-frequency-ul>
+			<min-supported-frequency-ul>3600000000</min-supported-frequency-ul>
+			<max-supported-bandwidth-ul>100000000</max-supported-bandwidth-ul>
+			<max-num-carriers-ul>1</max-num-carriers-ul>
+			<max-carrier-bandwidth-ul>100000000</max-carrier-bandwidth-ul>
+			<min-carrier-bandwidth-ul>20000000</min-carrier-bandwidth-ul>
+			<max-num-component-carriers>1</max-num-component-carriers>
+			<max-num-bands>1</max-num-bands>
+			<max-num-sectors>1</max-num-sectors>
+			<max-power-per-antenna>25.0</max-power-per-antenna>
+			<min-power-per-antenna>23.0</min-power-per-antenna>
+		</band-capabilities>
+	</module-capability>
+	<operational-info xmlns="urn:o-ran:operations:1.0">
+		<clock>
+			<timezone-utc-offset>0</timezone-utc-offset>
+			<timezone-name>GMT</timezone-name>
+		</clock>
+		<declarations>
+			<ru-instance-id>GARUDA_RU_MODEL_2020_STLI_RU_01</ru-instance-id>
+			<supported-mplane-version>2.0.0</supported-mplane-version>
+			<supported-cusplane-version>2.0.0</supported-cusplane-version>
+			<supported-header-mechanism>
+				<protocol>ECPRI</protocol>
+				<protocol-version>1.0</protocol-version>
+			</supported-header-mechanism>
+		</declarations>
+		<operational-state>
+			<restart-cause>POWER-ON</restart-cause>
+			<restart-datetime>2026-10-01T15:45:24Z</restart-datetime>
+		</operational-state>
+	</operational-info>
+	<user-plane-configuration xmlns="urn:o-ran:uplane-conf:1.0">
+		<low-level-tx-links>
+			<name>lltxlink0</name>
+			<processing-element>element0</processing-element>
+			<tx-array-carrier>txarraycarrier0</tx-array-carrier>
+			<low-level-tx-endpoint>slltx-endpoint0</low-level-tx-endpoint>
+		</low-level-tx-links>
+		<low-level-tx-links>
+			<name>lltxlink1</name>
+			<processing-element>element0</processing-element>
+			<tx-array-carrier>txarraycarrier0</tx-array-carrier>
+			<low-level-tx-endpoint>slltx-endpoint1</low-level-tx-endpoint>
+		</low-level-tx-links>
+		<low-level-tx-links>
+			<name>lltxlink2</name>
+			<processing-element>element0</processing-element>
+			<tx-array-carrier>txarraycarrier0</tx-array-carrier>
+			<low-level-tx-endpoint>slltx-endpoint2</low-level-tx-endpoint>
+		</low-level-tx-links>
+		<low-level-tx-links>
+			<name>lltxlink3</name>
+			<processing-element>element0</processing-element>
+			<tx-array-carrier>txarraycarrier0</tx-array-carrier>
+			<low-level-tx-endpoint>slltx-endpoint3</low-level-tx-endpoint>
+		</low-level-tx-links>
+		<low-level-rx-links>
+			<name>llrxlink0</name>
+			<processing-element>element0</processing-element>
+			<rx-array-carrier>rxarraycarrier0</rx-array-carrier>
+			<low-level-rx-endpoint>sllrx-endpoint0</low-level-rx-endpoint>
+		</low-level-rx-links>
+		<low-level-rx-links>
+			<name>llrxlink1</name>
+			<processing-element>element0</processing-element>
+			<rx-array-carrier>rxarraycarrier0</rx-array-carrier>
+			<low-level-rx-endpoint>sllrx-endpoint1</low-level-rx-endpoint>
+		</low-level-rx-links>
+		<low-level-rx-links>
+			<name>llrxlink2</name>
+			<processing-element>element0</processing-element>
+			<rx-array-carrier>rxarraycarrier0</rx-array-carrier>
+			<low-level-rx-endpoint>sllrx-endpoint2</low-level-rx-endpoint>
+		</low-level-rx-links>
+		<low-level-rx-links>
+			<name>llrxlink3</name>
+			<processing-element>element0</processing-element>
+			<rx-array-carrier>rxarraycarrier0</rx-array-carrier>
+			<low-level-rx-endpoint>sllrx-endpoint3</low-level-rx-endpoint>
+		</low-level-rx-links>
+		<low-level-tx-endpoints>
+			<name>slltx-endpoint0</name>
+			<compression>
+				<compression-type>STATIC</compression-type>
+				<iq-bitwidth>16</iq-bitwidth>
+			</compression>
+			<cp-length>352</cp-length>
+			<cp-length-other>288</cp-length-other>
+			<offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
+			<number-of-prb-per-scs>
+				<scs>KHZ_30</scs>
+				<number-of-prb>273</number-of-prb>
+			</number-of-prb-per-scs>
+			<e-axcid>
+				<o-du-port-bitmask>65024</o-du-port-bitmask>
+				<band-sector-bitmask>448</band-sector-bitmask>
+				<ccid-bitmask>56</ccid-bitmask>
+				<ru-port-bitmask>7</ru-port-bitmask>
+				<eaxc-id>1</eaxc-id>
+			</e-axcid>
+		</low-level-tx-endpoints>
+		<low-level-tx-endpoints>
+			<name>slltx-endpoint1</name>
+			<compression>
+				<compression-type>STATIC</compression-type>
+				<iq-bitwidth>16</iq-bitwidth>
+			</compression>
+			<cp-length>352</cp-length>
+			<cp-length-other>288</cp-length-other>
+			<offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
+			<number-of-prb-per-scs>
+				<scs>KHZ_30</scs>
+				<number-of-prb>273</number-of-prb>
+			</number-of-prb-per-scs>
+			<e-axcid>
+				<o-du-port-bitmask>65024</o-du-port-bitmask>
+				<band-sector-bitmask>448</band-sector-bitmask>
+				<ccid-bitmask>56</ccid-bitmask>
+				<ru-port-bitmask>7</ru-port-bitmask>
+				<eaxc-id>2</eaxc-id>
+			</e-axcid>
+		</low-level-tx-endpoints>
+		<low-level-tx-endpoints>
+			<name>slltx-endpoint2</name>
+			<compression>
+				<compression-type>STATIC</compression-type>
+				<iq-bitwidth>16</iq-bitwidth>
+			</compression>
+			<cp-length>352</cp-length>
+			<cp-length-other>288</cp-length-other>
+			<offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
+			<number-of-prb-per-scs>
+				<scs>KHZ_30</scs>
+				<number-of-prb>273</number-of-prb>
+			</number-of-prb-per-scs>
+			<e-axcid>
+				<o-du-port-bitmask>65024</o-du-port-bitmask>
+				<band-sector-bitmask>448</band-sector-bitmask>
+				<ccid-bitmask>56</ccid-bitmask>
+				<ru-port-bitmask>7</ru-port-bitmask>
+				<eaxc-id>3</eaxc-id>
+			</e-axcid>
+		</low-level-tx-endpoints>
+		<low-level-tx-endpoints>
+			<name>slltx-endpoint3</name>
+			<compression>
+				<compression-type>STATIC</compression-type>
+				<iq-bitwidth>16</iq-bitwidth>
+			</compression>
+			<cp-length>352</cp-length>
+			<cp-length-other>288</cp-length-other>
+			<offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
+			<number-of-prb-per-scs>
+				<scs>KHZ_30</scs>
+				<number-of-prb>273</number-of-prb>
+			</number-of-prb-per-scs>
+			<e-axcid>
+				<o-du-port-bitmask>65024</o-du-port-bitmask>
+				<band-sector-bitmask>448</band-sector-bitmask>
+				<ccid-bitmask>56</ccid-bitmask>
+				<ru-port-bitmask>7</ru-port-bitmask>
+				<eaxc-id>4</eaxc-id>
+			</e-axcid>
+		</low-level-tx-endpoints>
+		<low-level-rx-endpoints>
+			<name>sllrx-endpoint0</name>
+			<compression>
+				<compression-type>STATIC</compression-type>
+				<iq-bitwidth>16</iq-bitwidth>
+			</compression>
+			<cp-length>352</cp-length>
+			<cp-length-other>288</cp-length-other>
+			<offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
+			<number-of-prb-per-scs>
+				<scs>KHZ_30</scs>
+				<number-of-prb>273</number-of-prb>
+			</number-of-prb-per-scs>
+			<ul-fft-sampling-offsets>
+				<scs>KHZ_30</scs>
+			</ul-fft-sampling-offsets>
+			<e-axcid>
+				<o-du-port-bitmask>65024</o-du-port-bitmask>
+				<band-sector-bitmask>448</band-sector-bitmask>
+				<ccid-bitmask>56</ccid-bitmask>
+				<ru-port-bitmask>7</ru-port-bitmask>
+				<eaxc-id>1</eaxc-id>
+			</e-axcid>
+			<non-time-managed-delay-enabled>false</non-time-managed-delay-enabled>
+		</low-level-rx-endpoints>
+		<low-level-rx-endpoints>
+			<name>sllrx-endpoint1</name>
+			<compression>
+				<compression-type>STATIC</compression-type>
+				<iq-bitwidth>16</iq-bitwidth>
+			</compression>
+			<cp-length>352</cp-length>
+			<cp-length-other>288</cp-length-other>
+			<offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
+			<number-of-prb-per-scs>
+				<scs>KHZ_30</scs>
+				<number-of-prb>273</number-of-prb>
+			</number-of-prb-per-scs>
+			<ul-fft-sampling-offsets>
+				<scs>KHZ_30</scs>
+			</ul-fft-sampling-offsets>
+			<e-axcid>
+				<o-du-port-bitmask>65024</o-du-port-bitmask>
+				<band-sector-bitmask>448</band-sector-bitmask>
+				<ccid-bitmask>56</ccid-bitmask>
+				<ru-port-bitmask>7</ru-port-bitmask>
+				<eaxc-id>2</eaxc-id>
+			</e-axcid>
+			<non-time-managed-delay-enabled>false</non-time-managed-delay-enabled>
+		</low-level-rx-endpoints>
+		<low-level-rx-endpoints>
+			<name>sllrx-endpoint2</name>
+			<compression>
+				<compression-type>STATIC</compression-type>
+				<iq-bitwidth>16</iq-bitwidth>
+			</compression>
+			<cp-length>352</cp-length>
+			<cp-length-other>288</cp-length-other>
+			<offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
+			<number-of-prb-per-scs>
+				<scs>KHZ_30</scs>
+				<number-of-prb>273</number-of-prb>
+			</number-of-prb-per-scs>
+			<ul-fft-sampling-offsets>
+				<scs>KHZ_30</scs>
+			</ul-fft-sampling-offsets>
+			<e-axcid>
+				<o-du-port-bitmask>65024</o-du-port-bitmask>
+				<band-sector-bitmask>448</band-sector-bitmask>
+				<ccid-bitmask>56</ccid-bitmask>
+				<ru-port-bitmask>7</ru-port-bitmask>
+				<eaxc-id>3</eaxc-id>
+			</e-axcid>
+			<non-time-managed-delay-enabled>false</non-time-managed-delay-enabled>
+		</low-level-rx-endpoints>
+		<low-level-rx-endpoints>
+			<name>sllrx-endpoint3</name>
+			<compression>
+				<compression-type>STATIC</compression-type>
+				<iq-bitwidth>16</iq-bitwidth>
+			</compression>
+			<cp-length>352</cp-length>
+			<cp-length-other>288</cp-length-other>
+			<offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
+			<number-of-prb-per-scs>
+				<scs>KHZ_30</scs>
+				<number-of-prb>273</number-of-prb>
+			</number-of-prb-per-scs>
+			<ul-fft-sampling-offsets>
+				<scs>KHZ_30</scs>
+			</ul-fft-sampling-offsets>
+			<e-axcid>
+				<o-du-port-bitmask>65024</o-du-port-bitmask>
+				<band-sector-bitmask>448</band-sector-bitmask>
+				<ccid-bitmask>56</ccid-bitmask>
+				<ru-port-bitmask>7</ru-port-bitmask>
+				<eaxc-id>4</eaxc-id>
+			</e-axcid>
+			<non-time-managed-delay-enabled>false</non-time-managed-delay-enabled>
+		</low-level-rx-endpoints>
+		<tx-array-carriers>
+			<name>txarraycarrier0</name>
+			<absolute-frequency-center>643334</absolute-frequency-center>
+			<center-of-channel-bandwidth>3600000000</center-of-channel-bandwidth>
+			<channel-bandwidth>80000000</channel-bandwidth>
+			<active>ACTIVE</active>
+			<gain>0.0</gain>
+			<downlink-radio-frame-offset>0</downlink-radio-frame-offset>
+			<downlink-sfn-offset>0</downlink-sfn-offset>
+			<state>READY</state>
+			<type>NR</type>
+			<duplex-scheme>TDD</duplex-scheme>
+		</tx-array-carriers>
+		<rx-array-carriers>
+			<name>rxarraycarrier0</name>
+			<absolute-frequency-center>643334</absolute-frequency-center>
+			<center-of-channel-bandwidth>3600000000</center-of-channel-bandwidth>
+			<channel-bandwidth>80000000</channel-bandwidth>
+			<active>ACTIVE</active>
+			<downlink-radio-frame-offset>0</downlink-radio-frame-offset>
+			<downlink-sfn-offset>0</downlink-sfn-offset>
+			<gain-correction>0.0</gain-correction>
+			<n-ta-offset>25600</n-ta-offset>
+			<state>READY</state>
+			<type>NR</type>
+			<duplex-scheme>TDD</duplex-scheme>
+		</rx-array-carriers>
+		<tx-arrays>
+			<name>slltx-endpoint0</name>
+			<number-of-rows>1</number-of-rows>
+			<number-of-columns>1</number-of-columns>
+			<number-of-array-layers>1</number-of-array-layers>
+			<horizontal-spacing>1.0</horizontal-spacing>
+			<vertical-spacing>1.0</vertical-spacing>
+			<normal-vector-direction>
+				<azimuth-angle>1.0</azimuth-angle>
+				<zenith-angle>1.0</zenith-angle>
+			</normal-vector-direction>
+			<leftmost-bottom-array-element-position>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</leftmost-bottom-array-element-position>
+			<band-number>78</band-number>
+		</tx-arrays>
+		<tx-arrays>
+			<name>slltx-endpoint1</name>
+			<number-of-rows>1</number-of-rows>
+			<number-of-columns>1</number-of-columns>
+			<number-of-array-layers>1</number-of-array-layers>
+			<horizontal-spacing>1.0</horizontal-spacing>
+			<vertical-spacing>1.0</vertical-spacing>
+			<normal-vector-direction>
+				<azimuth-angle>1.0</azimuth-angle>
+				<zenith-angle>1.0</zenith-angle>
+			</normal-vector-direction>
+			<leftmost-bottom-array-element-position>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</leftmost-bottom-array-element-position>
+			<band-number>78</band-number>
+		</tx-arrays>
+		<tx-arrays>
+			<name>slltx-endpoint2</name>
+			<number-of-rows>1</number-of-rows>
+			<number-of-columns>1</number-of-columns>
+			<number-of-array-layers>1</number-of-array-layers>
+			<horizontal-spacing>1.0</horizontal-spacing>
+			<vertical-spacing>1.0</vertical-spacing>
+			<normal-vector-direction>
+				<azimuth-angle>1.0</azimuth-angle>
+				<zenith-angle>1.0</zenith-angle>
+			</normal-vector-direction>
+			<leftmost-bottom-array-element-position>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</leftmost-bottom-array-element-position>
+			<band-number>78</band-number>
+		</tx-arrays>
+		<tx-arrays>
+			<name>slltx-endpoint3</name>
+			<number-of-rows>1</number-of-rows>
+			<number-of-columns>1</number-of-columns>
+			<number-of-array-layers>1</number-of-array-layers>
+			<horizontal-spacing>1.0</horizontal-spacing>
+			<vertical-spacing>1.0</vertical-spacing>
+			<normal-vector-direction>
+				<azimuth-angle>1.0</azimuth-angle>
+				<zenith-angle>1.0</zenith-angle>
+			</normal-vector-direction>
+			<leftmost-bottom-array-element-position>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</leftmost-bottom-array-element-position>
+			<band-number>78</band-number>
+		</tx-arrays>
+		<rx-arrays>
+			<name>sllrx-endpoint0</name>
+			<number-of-rows>1</number-of-rows>
+			<number-of-columns>1</number-of-columns>
+			<number-of-array-layers>1</number-of-array-layers>
+			<horizontal-spacing>1.0</horizontal-spacing>
+			<vertical-spacing>1.0</vertical-spacing>
+			<normal-vector-direction>
+				<azimuth-angle>1.0</azimuth-angle>
+				<zenith-angle>1.0</zenith-angle>
+			</normal-vector-direction>
+			<leftmost-bottom-array-element-position>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</leftmost-bottom-array-element-position>
+			<band-number>78</band-number>
+		</rx-arrays>
+		<rx-arrays>
+			<name>sllrx-endpoint1</name>
+			<number-of-rows>1</number-of-rows>
+			<number-of-columns>1</number-of-columns>
+			<number-of-array-layers>1</number-of-array-layers>
+			<horizontal-spacing>1.0</horizontal-spacing>
+			<vertical-spacing>1.0</vertical-spacing>
+			<normal-vector-direction>
+				<azimuth-angle>1.0</azimuth-angle>
+				<zenith-angle>1.0</zenith-angle>
+			</normal-vector-direction>
+			<leftmost-bottom-array-element-position>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</leftmost-bottom-array-element-position>
+			<band-number>78</band-number>
+		</rx-arrays>
+		<rx-arrays>
+			<name>sllrx-endpoint2</name>
+			<number-of-rows>1</number-of-rows>
+			<number-of-columns>1</number-of-columns>
+			<number-of-array-layers>1</number-of-array-layers>
+			<horizontal-spacing>1.0</horizontal-spacing>
+			<vertical-spacing>1.0</vertical-spacing>
+			<normal-vector-direction>
+				<azimuth-angle>1.0</azimuth-angle>
+				<zenith-angle>1.0</zenith-angle>
+			</normal-vector-direction>
+			<leftmost-bottom-array-element-position>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</leftmost-bottom-array-element-position>
+			<band-number>78</band-number>
+		</rx-arrays>
+		<rx-arrays>
+			<name>sllrx-endpoint3</name>
+			<number-of-rows>1</number-of-rows>
+			<number-of-columns>1</number-of-columns>
+			<number-of-array-layers>1</number-of-array-layers>
+			<horizontal-spacing>1.0</horizontal-spacing>
+			<vertical-spacing>1.0</vertical-spacing>
+			<normal-vector-direction>
+				<azimuth-angle>1.0</azimuth-angle>
+				<zenith-angle>1.0</zenith-angle>
+			</normal-vector-direction>
+			<leftmost-bottom-array-element-position>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</leftmost-bottom-array-element-position>
+			<band-number>78</band-number>
+		</rx-arrays>
+		<relations>
+			<entity>0</entity>
+			<array1>
+				<tx-array-name>slltx-endpoint0</tx-array-name>
+			</array1>
+			<array2>
+				<rx-array-name>sllrx-endpoint0</rx-array-name>
+			</array2>
+			<types/>
+			<types>
+				<relation-type>COALOCATED</relation-type>
+				<pairs>
+					<element-array1>1</element-array1>
+					<element-array2>0</element-array2>
+				</pairs>
+			</types>
+		</relations>
+		<relations>
+			<entity>1</entity>
+			<array1>
+				<tx-array-name>slltx-endpoint1</tx-array-name>
+			</array1>
+			<array2>
+				<rx-array-name>sllrx-endpoint1</rx-array-name>
+			</array2>
+			<types/>
+			<types>
+				<relation-type>COALOCATED</relation-type>
+				<pairs>
+					<element-array1>1</element-array1>
+					<element-array2>1</element-array2>
+				</pairs>
+			</types>
+		</relations>
+		<relations>
+			<entity>2</entity>
+			<array1>
+				<tx-array-name>slltx-endpoint2</tx-array-name>
+			</array1>
+			<array2>
+				<rx-array-name>sllrx-endpoint2</rx-array-name>
+			</array2>
+			<types/>
+			<types>
+				<relation-type>COALOCATED</relation-type>
+				<pairs>
+					<element-array1>1</element-array1>
+					<element-array2>2</element-array2>
+				</pairs>
+			</types>
+		</relations>
+		<relations>
+			<entity>3</entity>
+			<array1>
+				<tx-array-name>slltx-endpoint3</tx-array-name>
+			</array1>
+			<array2>
+				<rx-array-name>sllrx-endpoint3</rx-array-name>
+			</array2>
+			<types/>
+			<types>
+				<relation-type>COALOCATED</relation-type>
+				<pairs>
+					<element-array1>1</element-array1>
+					<element-array2>3</element-array2>
+				</pairs>
+			</types>
+		</relations>
+		<endpoint-types>
+			<id>1</id>
+			<supported-section-types>
+				<section-type>1</section-type>
+			</supported-section-types>
+			<supported-section-types>
+				<section-type>3</section-type>
+			</supported-section-types>
+			<supported-frame-structures>193</supported-frame-structures>
+			<managed-delay-support>MANAGED</managed-delay-support>
+			<multiple-numerology-supported>false</multiple-numerology-supported>
+			<max-sections-per-symbol>46</max-sections-per-symbol>
+			<max-sections-per-slot>644</max-sections-per-slot>
+			<max-prb-per-symbol>273</max-prb-per-symbol>
+			<max-numerologies-per-symbol>1</max-numerologies-per-symbol>
+		</endpoint-types>
+		<static-low-level-tx-endpoints>
+			<name>slltx-endpoint0</name>
+			<array>slltx-endpoint0</array>
+			<endpoint-type>1</endpoint-type>
+			<capacity-sharing-groups>1</capacity-sharing-groups>
+		</static-low-level-tx-endpoints>
+		<static-low-level-tx-endpoints>
+			<name>slltx-endpoint1</name>
+			<array>slltx-endpoint1</array>
+			<endpoint-type>1</endpoint-type>
+			<capacity-sharing-groups>1</capacity-sharing-groups>
+		</static-low-level-tx-endpoints>
+		<static-low-level-tx-endpoints>
+			<name>slltx-endpoint2</name>
+			<array>slltx-endpoint2</array>
+			<endpoint-type>1</endpoint-type>
+			<capacity-sharing-groups>1</capacity-sharing-groups>
+		</static-low-level-tx-endpoints>
+		<static-low-level-tx-endpoints>
+			<name>slltx-endpoint3</name>
+			<array>slltx-endpoint3</array>
+			<endpoint-type>1</endpoint-type>
+			<capacity-sharing-groups>1</capacity-sharing-groups>
+		</static-low-level-tx-endpoints>
+		<static-low-level-rx-endpoints>
+			<name>sllrx-endpoint0</name>
+			<array>sllrx-endpoint0</array>
+			<endpoint-type>1</endpoint-type>
+			<capacity-sharing-groups>1</capacity-sharing-groups>
+		</static-low-level-rx-endpoints>
+		<static-low-level-rx-endpoints>
+			<name>sllrx-endpoint1</name>
+			<array>sllrx-endpoint1</array>
+			<endpoint-type>1</endpoint-type>
+			<capacity-sharing-groups>1</capacity-sharing-groups>
+		</static-low-level-rx-endpoints>
+		<static-low-level-rx-endpoints>
+			<name>sllrx-endpoint2</name>
+			<array>sllrx-endpoint2</array>
+			<endpoint-type>1</endpoint-type>
+			<capacity-sharing-groups>1</capacity-sharing-groups>
+		</static-low-level-rx-endpoints>
+		<static-low-level-rx-endpoints>
+			<name>sllrx-endpoint3</name>
+			<array>sllrx-endpoint3</array>
+			<endpoint-type>1</endpoint-type>
+			<capacity-sharing-groups>1</capacity-sharing-groups>
+		</static-low-level-rx-endpoints>
+		<endpoint-capacity-sharing-groups/>
+		<endpoint-capacity-sharing-groups>
+			<id>1</id>
+			<max-managed-delay-endpoints>4</max-managed-delay-endpoints>
+			<max-non-managed-delay-endpoints>0</max-non-managed-delay-endpoints>
+			<max-endpoints>4</max-endpoints>
+			<max-sections-per-symbol>46</max-sections-per-symbol>
+			<max-sections-per-slot>644</max-sections-per-slot>
+			<max-prb-per-symbol>273</max-prb-per-symbol>
+			<max-numerologies-per-symbol>1</max-numerologies-per-symbol>
+		</endpoint-capacity-sharing-groups>
+	</user-plane-configuration>
+	<yang-library xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-library">
+		<module-set>
+			<name>complete</name>
+			<import-only-module>
+				<name>ietf-yang-metadata</name>
+				<revision>2016-08-05</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-metadata</namespace>
+			</import-only-module>
+			<module>
+				<name>yang</name>
+				<revision>2017-02-20</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:1</namespace>
+			</module>
+			<import-only-module>
+				<name>ietf-inet-types</name>
+				<revision>2013-07-15</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-inet-types</namespace>
+				<location>file:///etc/sysrepo/yang/yang_models/imported/ietf/ietf-inet-types.yang</location>
+			</import-only-module>
+			<import-only-module>
+				<name>ietf-yang-types</name>
+				<revision>2013-07-15</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-types</namespace>
+				<location>file:///etc/sysrepo/yang/yang_models/imported/ietf/ietf-yang-types.yang</location>
+			</import-only-module>
+			<module>
+				<name>sysrepo</name>
+				<revision>2021-01-18</revision>
+				<namespace>http://www.sysrepo.org/yang/sysrepo</namespace>
+			</module>
+			<module>
+				<name>ietf-datastores</name>
+				<revision>2018-02-14</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-datastores</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-datastores@2018-02-14.yang</location>
+			</module>
+			<module>
+				<name>ietf-yang-library</name>
+				<revision>2019-01-04</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-library</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-yang-library@2019-01-04.yang</location>
+			</module>
+			<module>
+				<name>sysrepo-monitoring</name>
+				<revision>2021-01-15</revision>
+				<namespace>http://www.sysrepo.org/yang/sysrepo-monitoring</namespace>
+				<location>file:///etc/sysrepo/yang/sysrepo-monitoring@2021-01-15.yang</location>
+			</module>
+			<module>
+				<name>sysrepo-plugind</name>
+				<revision>2020-12-10</revision>
+				<namespace>urn:sysrepo:plugind</namespace>
+				<location>file:///etc/sysrepo/yang/sysrepo-plugind@2020-12-10.yang</location>
+			</module>
+			<module>
+				<name>ietf-netconf-acm</name>
+				<revision>2018-02-14</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-acm</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-netconf-acm@2018-02-14.yang</location>
+			</module>
+			<module>
+				<name>ietf-netconf</name>
+				<revision>2013-09-29</revision>
+				<namespace>urn:ietf:params:xml:ns:netconf:base:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-netconf@2013-09-29.yang</location>
+				<feature>writable-running</feature>
+				<feature>candidate</feature>
+				<feature>rollback-on-error</feature>
+				<feature>validate</feature>
+				<feature>startup</feature>
+				<feature>url</feature>
+				<feature>xpath</feature>
+			</module>
+			<module>
+				<name>ietf-netconf-with-defaults</name>
+				<revision>2011-06-01</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang</location>
+			</module>
+			<module>
+				<name>ietf-netconf-notifications</name>
+				<revision>2012-02-06</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-notifications</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang</location>
+			</module>
+			<module>
+				<name>ietf-origin</name>
+				<revision>2018-02-14</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-origin</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-origin@2018-02-14.yang</location>
+			</module>
+			<module>
+				<name>ietf-netconf-monitoring</name>
+				<revision>2010-10-04</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-netconf-monitoring@2010-10-04.yang</location>
+			</module>
+			<module>
+				<name>ietf-netconf-nmda</name>
+				<revision>2019-01-07</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-nmda</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-netconf-nmda@2019-01-07.yang</location>
+				<feature>origin</feature>
+				<feature>with-defaults</feature>
+			</module>
+			<module>
+				<name>notifications</name>
+				<revision>2008-07-14</revision>
+				<namespace>urn:ietf:params:xml:ns:netconf:notification:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/notifications@2008-07-14.yang</location>
+			</module>
+			<module>
+				<name>nc-notifications</name>
+				<revision>2008-07-14</revision>
+				<namespace>urn:ietf:params:xml:ns:netmod:notification</namespace>
+				<location>file:///etc/sysrepo/yang/nc-notifications@2008-07-14.yang</location>
+			</module>
+			<module>
+				<name>ietf-x509-cert-to-name</name>
+				<revision>2014-12-10</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-x509-cert-to-name@2014-12-10.yang</location>
+			</module>
+			<module>
+				<name>ietf-crypto-types</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-crypto-types</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-crypto-types@2019-07-02.yang</location>
+			</module>
+			<module>
+				<name>ietf-keystore</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-keystore</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-keystore@2019-07-02.yang</location>
+				<feature>keystore-supported</feature>
+			</module>
+			<module>
+				<name>ietf-truststore</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-truststore</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-truststore@2019-07-02.yang</location>
+				<feature>truststore-supported</feature>
+				<feature>x509-certificates</feature>
+			</module>
+			<module>
+				<name>ietf-tcp-common</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-common</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-tcp-common@2019-07-02.yang</location>
+				<feature>keepalives-supported</feature>
+			</module>
+			<import-only-module>
+				<name>ietf-ssh-common</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-ssh-common</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-ssh-common@2019-07-02.yang</location>
+			</import-only-module>
+			<import-only-module>
+				<name>iana-crypt-hash</name>
+				<revision>2014-08-06</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:iana-crypt-hash</namespace>
+				<location>file:///etc/sysrepo/yang/iana-crypt-hash@2014-08-06.yang</location>
+			</import-only-module>
+			<module>
+				<name>ietf-ssh-server</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-ssh-server</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-ssh-server@2019-07-02.yang</location>
+				<feature>local-client-auth-supported</feature>
+			</module>
+			<import-only-module>
+				<name>ietf-tls-common</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tls-common</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-tls-common@2019-07-02.yang</location>
+			</import-only-module>
+			<module>
+				<name>ietf-tls-server</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tls-server</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-tls-server@2019-07-02.yang</location>
+				<feature>local-client-auth-supported</feature>
+			</module>
+			<import-only-module>
+				<name>ietf-tcp-client</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-client</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-tcp-client@2019-07-02.yang</location>
+			</import-only-module>
+			<import-only-module>
+				<name>ietf-tcp-server</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-server</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-tcp-server@2019-07-02.yang</location>
+			</import-only-module>
+			<module>
+				<name>ietf-netconf-server</name>
+				<revision>2019-07-02</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-server</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-netconf-server@2019-07-02.yang</location>
+				<feature>ssh-listen</feature>
+				<feature>tls-listen</feature>
+				<feature>ssh-call-home</feature>
+				<feature>tls-call-home</feature>
+			</module>
+			<module>
+				<name>stli_giru-wdm</name>
+				<revision>2021-05-06</revision>
+				<namespace>urn:stli_giru:wdm:1.1</namespace>
+				<location>file:///etc/sysrepo/yang/stli_giru-wdm@2021-05-06.yang</location>
+			</module>
+			<module>
+				<name>stli_giru-opm</name>
+				<revision>2020-11-08</revision>
+				<namespace>urn:stli_giru-opm:1.1</namespace>
+				<location>file:///etc/sysrepo/yang/stli_giru-opm@2020-11-08.yang</location>
+			</module>
+			<module>
+				<name>notification_history</name>
+				<namespace>urn:notification_history</namespace>
+				<location>file:///etc/sysrepo/yang/notification_history.yang</location>
+			</module>
+			<module>
+				<name>iana-hardware</name>
+				<revision>2018-03-13</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:iana-hardware</namespace>
+				<location>file:///etc/sysrepo/yang/iana-hardware@2018-03-13.yang</location>
+			</module>
+			<module>
+				<name>ietf-hardware</name>
+				<revision>2018-03-13</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-hardware</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-hardware@2018-03-13.yang</location>
+				<feature>hardware-state</feature>
+			</module>
+			<module>
+				<name>ietf-interfaces</name>
+				<revision>2018-02-20</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-interfaces</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-interfaces@2018-02-20.yang</location>
+			</module>
+			<module>
+				<name>iana-if-type</name>
+				<revision>2017-01-19</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:iana-if-type</namespace>
+				<location>file:///etc/sysrepo/yang/iana-if-type@2017-01-19.yang</location>
+			</module>
+			<module>
+				<name>ietf-dhcpv6-types</name>
+				<revision>2018-01-30</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-dhcpv6-types</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-dhcpv6-types@2018-01-30.yang</location>
+			</module>
+			<module>
+				<name>ietf-ip</name>
+				<revision>2018-02-22</revision>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-ip</namespace>
+				<location>file:///etc/sysrepo/yang/ietf-ip@2018-02-22.yang</location>
+				<feature>ipv4-non-contiguous-netmasks</feature>
+			</module>
+			<module>
+				<name>o-ran-dhcp</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:dhcp:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-dhcp@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-interfaces</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:interfaces:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-interfaces@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-mplane-int</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:mplane-interfaces:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-mplane-int@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-transceiver</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:transceiver:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-transceiver@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-processing-element</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:processing-element:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-processing-element@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-supervision</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:supervision:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-supervision@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-hardware</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:hardware:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-hardware@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-fm</name>
+				<revision>2019-02-04</revision>
+				<namespace>urn:o-ran:fm:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-fm@2019-02-04.yang</location>
+			</module>
+			<module>
+				<name>o-ran-usermgmt</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:user-mgmt:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-usermgmt@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-sync</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:sync:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-sync@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-compression-factors</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:compression-factors:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-compression-factors@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-module-cap</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:module-cap:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-module-cap@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-delay-management</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:delay:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-delay-management@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-operations</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:operations:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-operations@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-uplane-conf</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:uplane-conf:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-uplane-conf@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-file-management</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:file-management:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-file-management@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-software-management</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:software-management:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-software-management@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-performance-management</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:performance-management:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-performance-management@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-trace</name>
+				<revision>2019-07-03</revision>
+				<namespace>urn:o-ran:trace:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-trace@2019-07-03.yang</location>
+			</module>
+			<module>
+				<name>o-ran-troubleshooting</name>
+				<revision>2019-02-04</revision>
+				<namespace>urn:o-ran:troubleshooting:1.0</namespace>
+				<location>file:///etc/sysrepo/yang/o-ran-troubleshooting@2019-02-04.yang</location>
+			</module>
+		</module-set>
+		<schema>
+			<name>complete</name>
+			<module-set>complete</module-set>
+		</schema>
+		<content-id>61</content-id>
+		<datastore>
+			<name xmlns:ds="urn:ietf:params:xml:ns:yang:ietf-datastores">ds:running</name>
+			<schema>complete</schema>
+		</datastore>
+		<datastore>
+			<name xmlns:ds="urn:ietf:params:xml:ns:yang:ietf-datastores">ds:candidate</name>
+			<schema>complete</schema>
+		</datastore>
+		<datastore>
+			<name xmlns:ds="urn:ietf:params:xml:ns:yang:ietf-datastores">ds:startup</name>
+			<schema>complete</schema>
+		</datastore>
+		<datastore>
+			<name xmlns:ds="urn:ietf:params:xml:ns:yang:ietf-datastores">ds:operational</name>
+			<schema>complete</schema>
+		</datastore>
+	</yang-library>
+	<modules-state xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-library">
+		<module>
+			<name>ietf-yang-metadata</name>
+			<revision>2016-08-05</revision>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-metadata</namespace>
+			<conformance-type>import</conformance-type>
+		</module>
+		<module>
+			<name>yang</name>
+			<revision>2017-02-20</revision>
+			<namespace>urn:ietf:params:xml:ns:yang:1</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-inet-types</name>
+			<revision>2013-07-15</revision>
+			<schema>file:///etc/sysrepo/yang/yang_models/imported/ietf/ietf-inet-types.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-inet-types</namespace>
+			<conformance-type>import</conformance-type>
+		</module>
+		<module>
+			<name>ietf-yang-types</name>
+			<revision>2013-07-15</revision>
+			<schema>file:///etc/sysrepo/yang/yang_models/imported/ietf/ietf-yang-types.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-types</namespace>
+			<conformance-type>import</conformance-type>
+		</module>
+		<module>
+			<name>sysrepo</name>
+			<revision>2021-01-18</revision>
+			<namespace>http://www.sysrepo.org/yang/sysrepo</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-datastores</name>
+			<revision>2018-02-14</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-datastores@2018-02-14.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-datastores</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-yang-library</name>
+			<revision>2019-01-04</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-yang-library@2019-01-04.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-library</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>sysrepo-monitoring</name>
+			<revision>2021-01-15</revision>
+			<schema>file:///etc/sysrepo/yang/sysrepo-monitoring@2021-01-15.yang</schema>
+			<namespace>http://www.sysrepo.org/yang/sysrepo-monitoring</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>sysrepo-plugind</name>
+			<revision>2020-12-10</revision>
+			<schema>file:///etc/sysrepo/yang/sysrepo-plugind@2020-12-10.yang</schema>
+			<namespace>urn:sysrepo:plugind</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-netconf-acm</name>
+			<revision>2018-02-14</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-netconf-acm@2018-02-14.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-acm</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-netconf</name>
+			<revision>2013-09-29</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-netconf@2013-09-29.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:netconf:base:1.0</namespace>
+			<feature>writable-running</feature>
+			<feature>candidate</feature>
+			<feature>rollback-on-error</feature>
+			<feature>validate</feature>
+			<feature>startup</feature>
+			<feature>url</feature>
+			<feature>xpath</feature>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-netconf-with-defaults</name>
+			<revision>2011-06-01</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-netconf-notifications</name>
+			<revision>2012-02-06</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-notifications</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-origin</name>
+			<revision>2018-02-14</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-origin@2018-02-14.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-origin</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-netconf-monitoring</name>
+			<revision>2010-10-04</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-netconf-monitoring@2010-10-04.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-netconf-nmda</name>
+			<revision>2019-01-07</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-netconf-nmda@2019-01-07.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-nmda</namespace>
+			<feature>origin</feature>
+			<feature>with-defaults</feature>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>notifications</name>
+			<revision>2008-07-14</revision>
+			<schema>file:///etc/sysrepo/yang/notifications@2008-07-14.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:netconf:notification:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>nc-notifications</name>
+			<revision>2008-07-14</revision>
+			<schema>file:///etc/sysrepo/yang/nc-notifications@2008-07-14.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:netmod:notification</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-x509-cert-to-name</name>
+			<revision>2014-12-10</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-x509-cert-to-name@2014-12-10.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-crypto-types</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-crypto-types@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-crypto-types</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-keystore</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-keystore@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-keystore</namespace>
+			<feature>keystore-supported</feature>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-truststore</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-truststore@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-truststore</namespace>
+			<feature>truststore-supported</feature>
+			<feature>x509-certificates</feature>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-tcp-common</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-tcp-common@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-common</namespace>
+			<feature>keepalives-supported</feature>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-ssh-common</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-ssh-common@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-ssh-common</namespace>
+			<conformance-type>import</conformance-type>
+		</module>
+		<module>
+			<name>iana-crypt-hash</name>
+			<revision>2014-08-06</revision>
+			<schema>file:///etc/sysrepo/yang/iana-crypt-hash@2014-08-06.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:iana-crypt-hash</namespace>
+			<conformance-type>import</conformance-type>
+		</module>
+		<module>
+			<name>ietf-ssh-server</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-ssh-server@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-ssh-server</namespace>
+			<feature>local-client-auth-supported</feature>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-tls-common</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-tls-common@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-tls-common</namespace>
+			<conformance-type>import</conformance-type>
+		</module>
+		<module>
+			<name>ietf-tls-server</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-tls-server@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-tls-server</namespace>
+			<feature>local-client-auth-supported</feature>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-tcp-client</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-tcp-client@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-client</namespace>
+			<conformance-type>import</conformance-type>
+		</module>
+		<module>
+			<name>ietf-tcp-server</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-tcp-server@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-server</namespace>
+			<conformance-type>import</conformance-type>
+		</module>
+		<module>
+			<name>ietf-netconf-server</name>
+			<revision>2019-07-02</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-netconf-server@2019-07-02.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-server</namespace>
+			<feature>ssh-listen</feature>
+			<feature>tls-listen</feature>
+			<feature>ssh-call-home</feature>
+			<feature>tls-call-home</feature>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>stli_giru-wdm</name>
+			<revision>2021-05-06</revision>
+			<schema>file:///etc/sysrepo/yang/stli_giru-wdm@2021-05-06.yang</schema>
+			<namespace>urn:stli_giru:wdm:1.1</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>stli_giru-opm</name>
+			<revision>2020-11-08</revision>
+			<schema>file:///etc/sysrepo/yang/stli_giru-opm@2020-11-08.yang</schema>
+			<namespace>urn:stli_giru-opm:1.1</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>notification_history</name>
+			<revision/>
+			<schema>file:///etc/sysrepo/yang/notification_history.yang</schema>
+			<namespace>urn:notification_history</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>iana-hardware</name>
+			<revision>2018-03-13</revision>
+			<schema>file:///etc/sysrepo/yang/iana-hardware@2018-03-13.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:iana-hardware</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-hardware</name>
+			<revision>2018-03-13</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-hardware@2018-03-13.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-hardware</namespace>
+			<feature>hardware-state</feature>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-interfaces</name>
+			<revision>2018-02-20</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-interfaces@2018-02-20.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-interfaces</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>iana-if-type</name>
+			<revision>2017-01-19</revision>
+			<schema>file:///etc/sysrepo/yang/iana-if-type@2017-01-19.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:iana-if-type</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-dhcpv6-types</name>
+			<revision>2018-01-30</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-dhcpv6-types@2018-01-30.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-dhcpv6-types</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>ietf-ip</name>
+			<revision>2018-02-22</revision>
+			<schema>file:///etc/sysrepo/yang/ietf-ip@2018-02-22.yang</schema>
+			<namespace>urn:ietf:params:xml:ns:yang:ietf-ip</namespace>
+			<feature>ipv4-non-contiguous-netmasks</feature>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-dhcp</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-dhcp@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:dhcp:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-interfaces</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-interfaces@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:interfaces:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-mplane-int</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-mplane-int@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:mplane-interfaces:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-transceiver</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-transceiver@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:transceiver:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-processing-element</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-processing-element@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:processing-element:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-supervision</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-supervision@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:supervision:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-hardware</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-hardware@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:hardware:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-fm</name>
+			<revision>2019-02-04</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-fm@2019-02-04.yang</schema>
+			<namespace>urn:o-ran:fm:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-usermgmt</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-usermgmt@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:user-mgmt:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-sync</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-sync@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:sync:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-compression-factors</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-compression-factors@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:compression-factors:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-module-cap</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-module-cap@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:module-cap:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-delay-management</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-delay-management@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:delay:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-operations</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-operations@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:operations:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-uplane-conf</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-uplane-conf@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:uplane-conf:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-file-management</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-file-management@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:file-management:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-software-management</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-software-management@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:software-management:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-performance-management</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-performance-management@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:performance-management:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-trace</name>
+			<revision>2019-07-03</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-trace@2019-07-03.yang</schema>
+			<namespace>urn:o-ran:trace:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module>
+			<name>o-ran-troubleshooting</name>
+			<revision>2019-02-04</revision>
+			<schema>file:///etc/sysrepo/yang/o-ran-troubleshooting@2019-02-04.yang</schema>
+			<namespace>urn:o-ran:troubleshooting:1.0</namespace>
+			<conformance-type>implement</conformance-type>
+		</module>
+		<module-set-id>61</module-set-id>
+	</modules-state>
+	<netconf-state xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring">
+		<capabilities>
+			<capability>urn:ietf:params:netconf:base:1.0</capability>
+			<capability>urn:ietf:params:netconf:base:1.1</capability>
+			<capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
+			<capability>urn:ietf:params:netconf:capability:candidate:1.0</capability>
+			<capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+			<capability>urn:ietf:params:netconf:capability:validate:1.1</capability>
+			<capability>urn:ietf:params:netconf:capability:startup:1.0</capability>
+			<capability>urn:ietf:params:netconf:capability:xpath:1.0</capability>
+			<capability>urn:ietf:params:netconf:capability:with-defaults:1.0?basic-mode=explicit&amp;also-supported=report-all,report-all-tagged,trim,explicit</capability>
+			<capability>urn:ietf:params:netconf:capability:notification:1.0</capability>
+			<capability>urn:ietf:params:netconf:capability:interleave:1.0</capability>
+			<capability>urn:ietf:params:xml:ns:yang:ietf-yang-metadata?module=ietf-yang-metadata&amp;revision=2016-08-05</capability>
+			<capability>urn:ietf:params:xml:ns:yang:1?module=yang&amp;revision=2017-02-20</capability>
+			<capability>urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&amp;revision=2013-07-15</capability>
+			<capability>urn:ietf:params:xml:ns:yang:ietf-yang-types?module=ietf-yang-types&amp;revision=2013-07-15</capability>
+			<capability>urn:ietf:params:netconf:capability:yang-library:1.1?revision=2019-01-04&amp;content-id=61</capability>
+			<capability>urn:sysrepo:plugind?module=sysrepo-plugind&amp;revision=2020-12-10</capability>
+			<capability>urn:ietf:params:xml:ns:yang:ietf-netconf-acm?module=ietf-netconf-acm&amp;revision=2018-02-14</capability>
+			<capability>urn:ietf:params:xml:ns:netconf:base:1.0?module=ietf-netconf&amp;revision=2013-09-29&amp;features=writable-running,candidate,rollback-on-error,validate,startup,url,xpath</capability>
+			<capability>urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults?module=ietf-netconf-with-defaults&amp;revision=2011-06-01</capability>
+			<capability>urn:ietf:params:xml:ns:yang:ietf-netconf-notifications?module=ietf-netconf-notifications&amp;revision=2012-02-06</capability>
+			<capability>urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring?module=ietf-netconf-monitoring&amp;revision=2010-10-04</capability>
+			<capability>urn:ietf:params:xml:ns:netconf:notification:1.0?module=notifications&amp;revision=2008-07-14</capability>
+			<capability>urn:ietf:params:xml:ns:netmod:notification?module=nc-notifications&amp;revision=2008-07-14</capability>
+			<capability>urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name?module=ietf-x509-cert-to-name&amp;revision=2014-12-10</capability>
+			<capability>urn:ietf:params:xml:ns:yang:iana-crypt-hash?module=iana-crypt-hash&amp;revision=2014-08-06</capability>
+			<capability>urn:notification_history?module=notification_history</capability>
+			<capability>urn:ietf:params:xml:ns:yang:iana-if-type?module=iana-if-type&amp;revision=2017-01-19</capability>
+		</capabilities>
+		<datastores>
+			<datastore>
+				<name>running</name>
+			</datastore>
+			<datastore>
+				<name>startup</name>
+			</datastore>
+			<datastore>
+				<name>candidate</name>
+			</datastore>
+		</datastores>
+		<schemas>
+			<schema>
+				<identifier>ietf-yang-metadata</identifier>
+				<version>2016-08-05</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-metadata</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-yang-metadata</identifier>
+				<version>2016-08-05</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-metadata</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>yang</identifier>
+				<version>2017-02-20</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:1</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>yang</identifier>
+				<version>2017-02-20</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:1</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-inet-types</identifier>
+				<version>2013-07-15</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-inet-types</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-inet-types</identifier>
+				<version>2013-07-15</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-inet-types</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-yang-types</identifier>
+				<version>2013-07-15</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-types</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-yang-types</identifier>
+				<version>2013-07-15</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-types</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>sysrepo</identifier>
+				<version>2021-01-18</version>
+				<format>yang</format>
+				<namespace>http://www.sysrepo.org/yang/sysrepo</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>sysrepo</identifier>
+				<version>2021-01-18</version>
+				<format>yin</format>
+				<namespace>http://www.sysrepo.org/yang/sysrepo</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-datastores</identifier>
+				<version>2018-02-14</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-datastores</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-datastores</identifier>
+				<version>2018-02-14</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-datastores</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-yang-library</identifier>
+				<version>2019-01-04</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-library</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-yang-library</identifier>
+				<version>2019-01-04</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-yang-library</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>sysrepo-monitoring</identifier>
+				<version>2021-01-15</version>
+				<format>yang</format>
+				<namespace>http://www.sysrepo.org/yang/sysrepo-monitoring</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>sysrepo-monitoring</identifier>
+				<version>2021-01-15</version>
+				<format>yin</format>
+				<namespace>http://www.sysrepo.org/yang/sysrepo-monitoring</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>sysrepo-plugind</identifier>
+				<version>2020-12-10</version>
+				<format>yang</format>
+				<namespace>urn:sysrepo:plugind</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>sysrepo-plugind</identifier>
+				<version>2020-12-10</version>
+				<format>yin</format>
+				<namespace>urn:sysrepo:plugind</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-acm</identifier>
+				<version>2018-02-14</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-acm</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-acm</identifier>
+				<version>2018-02-14</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-acm</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf</identifier>
+				<version>2013-09-29</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:netconf:base:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf</identifier>
+				<version>2013-09-29</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:netconf:base:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-with-defaults</identifier>
+				<version>2011-06-01</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-with-defaults</identifier>
+				<version>2011-06-01</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-notifications</identifier>
+				<version>2012-02-06</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-notifications</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-notifications</identifier>
+				<version>2012-02-06</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-notifications</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-origin</identifier>
+				<version>2018-02-14</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-origin</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-origin</identifier>
+				<version>2018-02-14</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-origin</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-monitoring</identifier>
+				<version>2010-10-04</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-monitoring</identifier>
+				<version>2010-10-04</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-nmda</identifier>
+				<version>2019-01-07</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-nmda</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-nmda</identifier>
+				<version>2019-01-07</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-nmda</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>notifications</identifier>
+				<version>2008-07-14</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:netconf:notification:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>notifications</identifier>
+				<version>2008-07-14</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:netconf:notification:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>nc-notifications</identifier>
+				<version>2008-07-14</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:netmod:notification</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>nc-notifications</identifier>
+				<version>2008-07-14</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:netmod:notification</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-x509-cert-to-name</identifier>
+				<version>2014-12-10</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-x509-cert-to-name</identifier>
+				<version>2014-12-10</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-crypto-types</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-crypto-types</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-crypto-types</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-crypto-types</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-keystore</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-keystore</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-keystore</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-keystore</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-truststore</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-truststore</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-truststore</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-truststore</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-tcp-common</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-common</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-tcp-common</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-common</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-ssh-common</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-ssh-common</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-ssh-common</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-ssh-common</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>iana-crypt-hash</identifier>
+				<version>2014-08-06</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:iana-crypt-hash</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>iana-crypt-hash</identifier>
+				<version>2014-08-06</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:iana-crypt-hash</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-ssh-server</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-ssh-server</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-ssh-server</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-ssh-server</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-tls-common</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tls-common</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-tls-common</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tls-common</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-tls-server</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tls-server</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-tls-server</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tls-server</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-tcp-client</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-client</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-tcp-client</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-client</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-tcp-server</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-server</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-tcp-server</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-tcp-server</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-server</identifier>
+				<version>2019-07-02</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-server</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-netconf-server</identifier>
+				<version>2019-07-02</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-netconf-server</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>stli_giru-wdm</identifier>
+				<version>2021-05-06</version>
+				<format>yang</format>
+				<namespace>urn:stli_giru:wdm:1.1</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>stli_giru-wdm</identifier>
+				<version>2021-05-06</version>
+				<format>yin</format>
+				<namespace>urn:stli_giru:wdm:1.1</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>stli_giru-opm</identifier>
+				<version>2020-11-08</version>
+				<format>yang</format>
+				<namespace>urn:stli_giru-opm:1.1</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>stli_giru-opm</identifier>
+				<version>2020-11-08</version>
+				<format>yin</format>
+				<namespace>urn:stli_giru-opm:1.1</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>notification_history</identifier>
+				<version/>
+				<format>yang</format>
+				<namespace>urn:notification_history</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>notification_history</identifier>
+				<version/>
+				<format>yin</format>
+				<namespace>urn:notification_history</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>iana-hardware</identifier>
+				<version>2018-03-13</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:iana-hardware</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>iana-hardware</identifier>
+				<version>2018-03-13</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:iana-hardware</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-hardware</identifier>
+				<version>2018-03-13</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-hardware</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-hardware</identifier>
+				<version>2018-03-13</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-hardware</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-interfaces</identifier>
+				<version>2018-02-20</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-interfaces</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-interfaces</identifier>
+				<version>2018-02-20</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-interfaces</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>iana-if-type</identifier>
+				<version>2017-01-19</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:iana-if-type</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>iana-if-type</identifier>
+				<version>2017-01-19</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:iana-if-type</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-dhcpv6-types</identifier>
+				<version>2018-01-30</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-dhcpv6-types</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-dhcpv6-types</identifier>
+				<version>2018-01-30</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-dhcpv6-types</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-ip</identifier>
+				<version>2018-02-22</version>
+				<format>yang</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-ip</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>ietf-ip</identifier>
+				<version>2018-02-22</version>
+				<format>yin</format>
+				<namespace>urn:ietf:params:xml:ns:yang:ietf-ip</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-dhcp</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:dhcp:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-dhcp</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:dhcp:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-interfaces</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:interfaces:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-interfaces</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:interfaces:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-mplane-int</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:mplane-interfaces:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-mplane-int</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:mplane-interfaces:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-transceiver</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:transceiver:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-transceiver</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:transceiver:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-processing-element</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:processing-element:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-processing-element</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:processing-element:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-supervision</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:supervision:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-supervision</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:supervision:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-hardware</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:hardware:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-hardware</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:hardware:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-fm</identifier>
+				<version>2019-02-04</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:fm:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-fm</identifier>
+				<version>2019-02-04</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:fm:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-usermgmt</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:user-mgmt:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-usermgmt</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:user-mgmt:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-sync</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:sync:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-sync</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:sync:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-compression-factors</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:compression-factors:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-compression-factors</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:compression-factors:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-module-cap</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:module-cap:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-module-cap</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:module-cap:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-delay-management</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:delay:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-delay-management</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:delay:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-operations</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:operations:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-operations</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:operations:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-uplane-conf</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:uplane-conf:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-uplane-conf</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:uplane-conf:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-file-management</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:file-management:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-file-management</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:file-management:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-software-management</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:software-management:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-software-management</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:software-management:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-performance-management</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:performance-management:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-performance-management</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:performance-management:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-trace</identifier>
+				<version>2019-07-03</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:trace:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-trace</identifier>
+				<version>2019-07-03</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:trace:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-troubleshooting</identifier>
+				<version>2019-02-04</version>
+				<format>yang</format>
+				<namespace>urn:o-ran:troubleshooting:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+			<schema>
+				<identifier>o-ran-troubleshooting</identifier>
+				<version>2019-02-04</version>
+				<format>yin</format>
+				<namespace>urn:o-ran:troubleshooting:1.0</namespace>
+				<location>NETCONF</location>
+			</schema>
+		</schemas>
+		<sessions>
+			<session>
+				<session-id>4</session-id>
+				<transport>netconf-ssh</transport>
+				<username>operator</username>
+				<source-host>192.168.3.15</source-host>
+				<login-time>2026-10-01T15:46:31Z</login-time>
+				<in-rpcs>1</in-rpcs>
+				<in-bad-rpcs>0</in-bad-rpcs>
+				<out-rpc-errors>0</out-rpc-errors>
+				<out-notifications>0</out-notifications>
+			</session>
+		</sessions>
+		<statistics>
+			<netconf-start-time>2026-10-01T15:45:21Z</netconf-start-time>
+			<in-bad-hellos>0</in-bad-hellos>
+			<in-sessions>4</in-sessions>
+			<dropped-sessions>1</dropped-sessions>
+			<in-rpcs>7</in-rpcs>
+			<in-bad-rpcs>0</in-bad-rpcs>
+			<out-rpc-errors>0</out-rpc-errors>
+			<out-notifications>0</out-notifications>
+		</statistics>
+	</netconf-state>
+	<netconf xmlns="urn:ietf:params:xml:ns:netmod:notification">
+		<streams>
+			<stream>
+				<name>NETCONF</name>
+				<description>Default NETCONF stream containing notifications from all the modules. Replays only notifications for modules that support replay.</description>
+				<replaySupport>true</replaySupport>
+			</stream>
+			<stream>
+				<name>yang</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-datastores</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-yang-library</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>sysrepo-monitoring</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>sysrepo-plugind</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-netconf-with-defaults</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-netconf-notifications</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-origin</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-netconf-acm</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-netconf</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-netconf-monitoring</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-netconf-nmda</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>nc-notifications</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>notifications</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-x509-cert-to-name</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-crypto-types</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-keystore</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-truststore</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-tcp-common</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-ssh-server</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-tls-server</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-netconf-server</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>stli_giru-wdm</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>stli_giru-opm</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>notification_history</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>iana-hardware</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-hardware</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-interfaces</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>iana-if-type</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-dhcpv6-types</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>ietf-ip</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-dhcp</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-interfaces</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-mplane-int</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-transceiver</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-processing-element</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-supervision</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-hardware</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-fm</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-usermgmt</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-sync</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-compression-factors</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-module-cap</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-delay-management</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-operations</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-uplane-conf</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-file-management</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-software-management</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-performance-management</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-trace</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+			<stream>
+				<name>o-ran-troubleshooting</name>
+				<description>Stream with all notifications of a module.</description>
+				<replaySupport>false</replaySupport>
+			</stream>
+		</streams>
+	</netconf>
+	<interfaces-state xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+		<interface>
+			<name>lo</name>
+			<oper-status>up</oper-status>
+			<phys-address>00:00:00:00:00:00</phys-address>
+			<statistics>
+				<in-octets>0</in-octets>
+				<in-discards>0</in-discards>
+				<in-errors>0</in-errors>
+				<out-octets>0</out-octets>
+				<out-errors>0</out-errors>
+				<out-discards>0</out-discards>
+			</statistics>
+		</interface>
+		<interface>
+			<name>eth0</name>
+			<oper-status>up</oper-status>
+			<phys-address>98:ae:71:01:64:d8</phys-address>
+			<statistics>
+				<in-octets>49407</in-octets>
+				<in-discards>0</in-discards>
+				<in-errors>0</in-errors>
+				<out-octets>67337</out-octets>
+				<out-errors>0</out-errors>
+				<out-discards>0</out-discards>
+			</statistics>
+		</interface>
+		<interface>
+			<name>eth0.100</name>
+			<oper-status>up</oper-status>
+			<phys-address>98:ae:71:01:64:d8</phys-address>
+			<statistics>
+				<in-octets>0</in-octets>
+				<in-discards>0</in-discards>
+				<in-errors>0</in-errors>
+				<out-octets>796</out-octets>
+				<out-errors>0</out-errors>
+				<out-discards>0</out-discards>
+			</statistics>
+		</interface>
+	</interfaces-state>
+	<dhcp xmlns="urn:o-ran:dhcp:1.0">
+		<interfaces>
+			<interface>eth0</interface>
+			<dhcpv4>
+				<dhcp-server-identifier>192.168.3.15</dhcp-server-identifier>
+				<domain-name>vvdntech.com</domain-name>
+				<domain-name-servers>192.168.3.15</domain-name-servers>
+				<interface-mtu>1500</interface-mtu>
+				<default-gateways>192.168.3.15</default-gateways>
+				<netconf-clients>
+					<client>192.168.3.15</client>
+				</netconf-clients>
+			</dhcpv4>
+		</interfaces>
+	</dhcp>
+	<software-inventory xmlns="urn:o-ran:software-management:1.0">
+		<software-slot>
+			<name>swSlot1</name>
+			<status>VALID</status>
+			<active>false</active>
+			<running>false</running>
+			<access>READ_WRITE</access>
+			<product-code>STL O-RU</product-code>
+			<vendor-code>VN</vendor-code>
+			<build-id>90f0b6c</build-id>
+			<build-name>Beta Release</build-name>
+			<build-version>4.7.2</build-version>
+			<files>
+				<name>boot</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/BOOT0001.BIN</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>kernel</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/image0001.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>rootfs</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p2/</local-path>
+				<integrity>OK</integrity>
+			</files>
+		</software-slot>
+		<software-slot>
+			<name>swSlot2</name>
+			<status>VALID</status>
+			<active>true</active>
+			<running>true</running>
+			<access>READ_WRITE</access>
+			<product-code>STL O-RU</product-code>
+			<vendor-code>VN</vendor-code>
+			<build-id>90f0b6c</build-id>
+			<build-name>Beta Release</build-name>
+			<build-version>4.1.9</build-version>
+			<files>
+				<name>boot</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/BOOT0002.BIN</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>kernel</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/image0002.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>rootfs</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p3/</local-path>
+				<integrity>OK</integrity>
+			</files>
+		</software-slot>
+		<software-slot>
+			<name>swRecoverySlot</name>
+			<status>VALID</status>
+			<active>false</active>
+			<running>false</running>
+			<access>READ_ONLY</access>
+			<product-code>STL=O-RU</product-code>
+			<vendor-code>VN</vendor-code>
+			<build-id>factory_img</build-id>
+			<build-name>Beta Release</build-name>
+			<build-version>1.3.4</build-version>
+			<files>
+				<name>boot</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/BOOT0003.BIN</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>kernel</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/golden.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+			<files>
+				<name>rootfs</name>
+				<version>1.0.0</version>
+				<local-path>/media/sd-mmcblk0p1/golden.ub</local-path>
+				<integrity>OK</integrity>
+			</files>
+		</software-slot>
+	</software-inventory>
+</data>
+
+----------------------------------------------------------------------------------------------------
+				SYSTEM LOGS
+----------------------------------------------------------------------------------------------------
+Oct  1 15:46:26 garuda daemon.info netopeer2-server[842]: Session 3: thread 2 event new RPC.
+
+Oct  1 15:46:26 garuda daemon.info netopeer2-server[842]: Session 3: thread 2 event session terminated.
+
+Oct  1 15:46:26 garuda daemon.info netopeer2-server[842]: There are no subscribers for "ietf-netconf-notifications" notifications.
+
+Oct  1 15:46:26 garuda daemon.info netopeer2-server[842]: Generated new event (netconf-session-end).
+
+Oct  1 15:46:26 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:26 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:26 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:26 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:27 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:27 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:27 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:27 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:27 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:46:27 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:46:27 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:46:27 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:46:27 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:46:28 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:28 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:28 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:28 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:29 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:29 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:29 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:29 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:30 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:30 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:30 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:30 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Accepted a connection on 0.0.0.0:830.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Session 129 (user "root", CID 1) created.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Received an SSH message "request-service" of subtype "ssh-userauth".
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Received an SSH message "request-auth" of subtype "password".
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: User "operator" authenticated.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Received an SSH message "request-channel-open" of subtype "session".
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Received an SSH message "request-channel" of subtype "subsystem".
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Session 130 (user "root", CID 1) created.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There are no subscribers for "ietf-netconf-notifications" notifications.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Generated new event (netconf-session-start).
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "rpc" "/notifications:create-subscription" with ID 1 priority 0 for 1 subscribers.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Processing "/notifications:create-subscription" "rpc" event with ID 1 priority 0 (remaining 1 subscribers).
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Successful processing of "rpc" event with ID 1 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "rpc" with ID 1 priority 0 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Session 4: thread 2 event new RPC.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "rpc" "/ietf-netconf:get" with ID 3 priority 0 for 1 subscribers.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Processing "/ietf-netconf:get" "rpc" event with ID 3 priority 0 (remaining 1 subscribers).
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/ietf-netconf-acm:nacm/denied-operations" with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Processing "ietf-netconf-acm" "operational" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Successful processing of "operational" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/ietf-netconf-acm:nacm/denied-data-writes" with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Processing "ietf-netconf-acm" "operational" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Successful processing of "operational" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/ietf-netconf-acm:nacm/denied-notifications" with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Processing "ietf-netconf-acm" "operational" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Successful processing of "operational" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/ietf-netconf-monitoring:netconf-state" with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Processing "ietf-netconf-monitoring" "operational" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Successful processing of "operational" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/nc-notifications:netconf" with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Processing "nc-notifications" "operational" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Successful processing of "operational" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/ietf-hardware:hardware" with ID 26.
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: SR_HW: Data for "ietf-hardware" "/ietf-hardware:hardware" requested
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 26 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda user.notice SYNCMNGR[1164]: Received message from S-Plane
+
+Oct  1 15:46:31 garuda user.notice SYNCMNGR[1164]: SYNCE Lock state : UNLOCKED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/ietf-interfaces:interfaces" with ID 1.
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: DATA FOR "ietf-interfaces" "/ietf-interfaces:interfaces" REQUESTED
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: IF_CFG: File,/sys/class/net/lo/speed reading failed errno:(Invalid argument)
+
+Oct  1 15:46:31 garuda user.notice SYNCMNGR[1164]: PTP Lock state : UNLOCKED
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: IF_CFG: File,/sys/class/net/eth0/speed reading failed errno:(Invalid argument)
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/sync/synce-status/lock-state" with the value "UNLOCKED", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Processing "notif" "o-ran-sync" event with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 1 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: IF_CFG: File,/sys/class/net/eth0.100/speed reading failed errno:(Invalid argument)
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda user.notice SYNCMNGR[1164]: SYNC Lock state : FREE RUN
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/sync/ptp-status/lock-state" with the value "UNLOCKED", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Processing "notif" "o-ran-sync" event with ID 2.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 2 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/ietf-interfaces:interfaces-state" with ID 1.
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: DATA FOR "ietf-interfaces" "/ietf-interfaces:interfaces-state" REQUESTED
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: /ietf-interfaces:interfaces-state
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: IFMNGR: getting state of interface : lo 
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: IF_CFG: File,/sys/class/net/lo/speed reading failed errno:(Invalid argument)
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: Interface : lo	 in-octets: 0
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: Interface : lo	 in-discards: 0
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: Interface : lo	 in-errors: 0
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: IFMNGR: getting state of interface : eth0 
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: IF_CFG: File,/sys/class/net/eth0/speed reading failed errno:(Invalid argument)
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: Interface : eth0	 in-octets: 49407
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: Interface : eth0	 in-discards: 0
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/sync/sync-status/sync-state" with the value "FREERUN", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Processing "notif" "o-ran-sync" event with ID 3.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 3 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: Interface : eth0	 in-errors: 0
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: IFMNGR: getting state of interface : eth0.100 
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: IF_CFG: File,/sys/class/net/eth0.100/speed reading failed errno:(Invalid argument)
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: Interface : eth0.100	 in-octets: 0
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: Interface : eth0.100	 in-discards: 0
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: IFMNGR: Interface : eth0.100	 in-errors: 0
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-dhcp:dhcp/interfaces" with ID 1.
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: Interface : eth0
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: Clientid  : 
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: Serverid  : 192.168.3.15
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: MTU	   : 1500
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: Domain	   : vvdntech.com
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: DNS	   : 192.168.3.15
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: Gateway   : 192.168.3.15
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: NC Client   : 192.168.3.15
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: DHCP: DATA FOR "o-ran-dhcp" "/o-ran-dhcp:dhcp/interfaces" REQUESTED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-interfaces:interfaces/ietf-interfaces:interface/ietf-interfaces:name" with the value "eth0", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-mplane-int:mplane-info/m-plane-interfaces" with ID 1.
+
+Oct  1 15:46:31 garuda user.info nw_manager[869]: Mplane: DATA FOR "o-ran-mplane-int" "/o-ran-mplane-int:mplane-info/m-plane-interfaces" REQUESTED
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: Getting fqdn string 
+
+Oct  1 15:46:31 garuda user.err nw_manager[869]: Unable to open fqdn file or file not created 
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-transceiver:port-transceivers" with ID 1.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-processing-element:processing-elements" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice PROCESSING-ELEMENTS[1175]: DATA FOR "o-ran-processing-element" "/o-ran-processing-element:processing-elements" REQUESTED
+
+Oct  1 15:46:31 garuda user.notice PROCESSING-ELEMENTS[1175]:  get-maximum-number-of-transport-flow
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-fm:active-alarm-list/active-alarms" with ID 1.
+
+Oct  1 15:46:31 garuda user.info FAULT MANAGEMENT[896]:  		 ========== DATA FOR "o-ran-fm" "/o-ran-fm:active-alarm-list/active-alarms" REQUESTED=======================
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-sync:sync" with ID 9.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 9 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-interfaces:interfaces/ietf-interfaces:interface/o-ran-interfaces:port-reference/o-ran-interfaces:port-number" with the value "0", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-interfaces:interfaces/ietf-interfaces:interface/o-ran-interfaces:port-reference/o-ran-interfaces:port-number" with the value "0", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-module-cap:module-capability" with ID 1.
+
+Oct  1 15:46:31 garuda user.info radio_manager[1268]: Data for "o-ran-module-cap" "/o-ran-module-cap:module-capability" requested
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-delay-management:delay-management" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice radio_manager[1268]: DATA FOR "o-ran-delay-management" "/o-ran-delay-management:delay-management" REQUESTED 
+
+Oct  1 15:46:31 garuda user.notice radio_manager[1268]: o-ran-delay-management: /o-ran-delay-management:delay-management 
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-operations:operational-info" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice SR_OP[1175]: Data for o-ran-operations on /o-ran-operations:operational-info requested
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-uplane-conf:user-plane-configuration/tx-arrays" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice UPLANECONF[1175]: DATA FOR "o-ran-uplane-conf" "/o-ran-uplane-conf:user-plane-configuration/tx-arrays" REQUESTED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-uplane-conf:user-plane-configuration/rx-arrays" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice UPLANECONF[1175]: DATA FOR "o-ran-uplane-conf" "/o-ran-uplane-conf:user-plane-configuration/rx-arrays" REQUESTED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:31 garuda user.err FAULT MANAGER[857]: sendData : Source ID: 15 
+
+Oct  1 15:46:31 garuda user.err FAULT MANAGER[857]: sendData : Fault ID: 18 
+
+Oct  1 15:46:31 garuda user.err FAULT MANAGER[857]: sendData : FAULT_IS_CLEARED: FALSE 
+
+Oct  1 15:46:31 garuda user.err FAULT MANAGER[857]: sendData : FAULT_SEVERITY: 3 
+
+Oct  1 15:46:31 garuda user.err FAULT MANAGER[857]: sendData : FAULT_TIME: 2026-10-01T15:46:31Z 
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-uplane-conf:user-plane-configuration/relations" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice UPLANECONF[1175]: DATA FOR "o-ran-uplane-conf" "/o-ran-uplane-conf:user-plane-configuration/relations" REQUESTED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-uplane-conf:user-plane-configuration/o-ran-uplane-conf:tx-arrays/o-ran-uplane-conf:name" with the value "slltx-endpoint0", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-uplane-conf:user-plane-configuration/o-ran-uplane-conf:rx-arrays/o-ran-uplane-conf:name" with the value "sllrx-endpoint0", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-uplane-conf:user-plane-configuration/o-ran-uplane-conf:tx-arrays/o-ran-uplane-conf:name" with the value "slltx-endpoint1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-uplane-conf:user-plane-configuration/o-ran-uplane-conf:rx-arrays/o-ran-uplane-conf:name" with the value "sllrx-endpoint1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-uplane-conf:user-plane-configuration/o-ran-uplane-conf:tx-arrays/o-ran-uplane-conf:name" with the value "slltx-endpoint2", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-uplane-conf:user-plane-configuration/o-ran-uplane-conf:rx-arrays/o-ran-uplane-conf:name" with the value "sllrx-endpoint2", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-uplane-conf:user-plane-configuration/o-ran-uplane-conf:tx-arrays/o-ran-uplane-conf:name" with the value "slltx-endpoint3", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-uplane-conf:user-plane-configuration/o-ran-uplane-conf:rx-arrays/o-ran-uplane-conf:name" with the value "sllrx-endpoint3", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-uplane-conf:user-plane-configuration/endpoint-types" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice UPLANECONF[1175]: DATA FOR "o-ran-uplane-conf" "/o-ran-uplane-conf:user-plane-configuration/endpoint-types" REQUESTED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-uplane-conf:user-plane-configuration/tx-array-carriers" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice UPLANECONF[1175]: DATA FOR "o-ran-uplane-conf" "/o-ran-uplane-conf:user-plane-configuration/tx-array-carriers" REQUESTED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-uplane-conf:user-plane-configuration/rx-array-carriers" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice UPLANECONF[1175]: DATA FOR "o-ran-uplane-conf" "/o-ran-uplane-conf:user-plane-configuration/rx-array-carriers" REQUESTED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-uplane-conf:user-plane-configuration/static-low-level-tx-endpoints" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice UPLANECONF[1175]: DATA FOR "o-ran-uplane-conf" "/o-ran-uplane-conf:user-plane-configuration/static-low-level-tx-endpoints" REQUESTED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/user-plane-configuration/tx-arrays/name" with the value "slltx-endpoint0", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-types/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-capacity-sharing-groups/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/user-plane-configuration/tx-arrays/name" with the value "slltx-endpoint1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-types/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-capacity-sharing-groups/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/user-plane-configuration/tx-arrays/name" with the value "slltx-endpoint2", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-types/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-capacity-sharing-groups/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/user-plane-configuration/tx-arrays/name" with the value "slltx-endpoint3", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-types/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-capacity-sharing-groups/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-uplane-conf:user-plane-configuration/static-low-level-rx-endpoints" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice UPLANECONF[1175]: DATA FOR "o-ran-uplane-conf" "/o-ran-uplane-conf:user-plane-configuration/static-low-level-rx-endpoints" REQUESTED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/user-plane-configuration/rx-arrays/name" with the value "sllrx-endpoint0", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-types/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-capacity-sharing-groups/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/user-plane-configuration/rx-arrays/name" with the value "sllrx-endpoint1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-types/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-capacity-sharing-groups/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/user-plane-configuration/rx-arrays/name" with the value "sllrx-endpoint2", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-types/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-capacity-sharing-groups/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "/user-plane-configuration/rx-arrays/name" with the value "sllrx-endpoint3", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-types/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: There is no leafref "../../endpoint-capacity-sharing-groups/id" with the value "1", but it is not required.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-uplane-conf:user-plane-configuration/endpoint-capacity-sharing-groups" with ID 1.
+
+Oct  1 15:46:31 garuda user.notice UPLANECONF[1175]: DATA FOR "o-ran-uplane-conf" "/o-ran-uplane-conf:user-plane-configuration/endpoint-capacity-sharing-groups" REQUESTED
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:31 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-software-management:software-inventory" with ID 2.
+
+Oct  1 15:46:31 garuda user.notice fw_manager[917]: RPC #2 recieved. xpath -> /o-ran-software-management:software-inventory
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 2 succeeded.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL=O-RU", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Published event "operational" "/o-ran-performance-management:performance-measurement-objects" with ID 1.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Event "operational" with ID 1 succeeded.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no instance of "/notification_history:history/module-notification[module-name='Module or antenna line']", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no instance of "/notification_history:history/module-notification[module-name='Module or antenna line']/module-name", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Processing "notif" "ietf-netconf-notifications" event with ID 1.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 1 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no instance of "/notification_history:history/module-notification[module-name='Module or antenna line']/notif-error", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Processing "notif" "ietf-netconf-notifications" event with ID 2.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 2 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no instance of "/notification_history:history/module-notification[module-name='Module or antenna line']/alert", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Processing "notif" "ietf-netconf-notifications" event with ID 3.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 3 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no instance of "/notification_history:history/module-notification[module-name='Module or antenna line']/epochtime", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Processing "notif" "ietf-netconf-notifications" event with ID 4.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 4 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Processing "notif" "o-ran-fm" event with ID 1.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Successful processing of "notif" event with ID 1 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Successful processing of "rpc" event with ID 3 priority 0 (remaining 0 subscribers).
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Event "rpc" with ID 3 priority 0 succeeded.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Resolving unresolved data nodes and their constraints...
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/o-ran-module-cap:module-capability/o-ran-module-cap:band-capabilities/o-ran-module-cap:band-number" with the value "78", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL O-RU", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There is no leafref "/ietf-hardware:hardware/ietf-hardware:component/o-ran-hardware:product-code" with the value "STL=O-RU", but it is not required.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: All data nodes and constraints resolved.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Session 4: thread 2 event new RPC.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Session 4: thread 2 event new RPC.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Session 4: thread 2 event session terminated.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Trying to connect via IPv4 to 192.168.3.15:4334.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: getsockopt() error (Connection refused).
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: There are no subscribers for "ietf-netconf-notifications" notifications.
+
+Oct  1 15:46:32 garuda daemon.info netopeer2-server[842]: Generated new event (netconf-session-end).
+
+Oct  1 15:46:32 garuda auth.info sshd[2582]: Accepted password for operator from 192.168.3.15 port 50886 ssh2
+
+Oct  1 15:46:32 garuda authpriv.info sshd[2582]: pam_unix(sshd:session): session opened for user operator by (uid=0)
+
+
+****************************************************************************************************
+STATUS                                                     =                  PASS        
+
+****************************************************************************************************
